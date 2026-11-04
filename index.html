@@ -20,6 +20,7 @@
         <a href="#preview">Preview</a>
         <a href="#site-check">Site check</a>
         <a href="#estimate">Estimate</a>
+        <a href="#sprint">Sprint</a>
         <a href="#approach">Approach</a>
         <a href="#about">About</a>
       </nav>
@@ -511,6 +512,48 @@
       </div>
     </section>
 
+    <section class="sprint-section" id="sprint" aria-labelledby="sprint-title">
+      <div class="sprint-head reveal">
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> The zero-risk sprint</p>
+        <h2 id="sprint-title">Hold your<br>start week<em>.</em></h2>
+        <p class="sprint-sub">Every other quote vanishes into email and silence. This one doesn’t: pick the week you want on the schedule, the price you built above locks in writing — and if you pass before the first draft, you owe nothing.</p>
+      </div>
+      <div class="sprint-stage reveal">
+        <ol class="sprint-guarantees">
+          <li class="sprint-guarantee">
+            <span class="sg-num" aria-hidden="true">01</span>
+            <div>
+              <h3>Fixed price, in writing</h3>
+              <p>The range you built above becomes the number on the quote — it never creeps mid-project. If something big changes, we re-scope together in writing <em>before</em> any work happens.</p>
+            </div>
+          </li>
+          <li class="sprint-guarantee">
+            <span class="sg-num" aria-hidden="true">02</span>
+            <div>
+              <h3>Draft first, pay second</h3>
+              <p>You approve the first full draft before paying anything. If it misses your brief, I revise free until it hits — and if you pass before it lands, you owe me nothing.</p>
+            </div>
+          </li>
+          <li class="sprint-guarantee">
+            <span class="sg-num" aria-hidden="true">03</span>
+            <div>
+              <h3>You own everything</h3>
+              <p>Code, copy, domain, photos, logins. No hostage fees and no proprietary lock-in — if we part ways, you keep the keys to all of it.</p>
+            </div>
+          </li>
+        </ol>
+        <aside class="sprint-panel" aria-label="Hold your start week">
+          <span class="est-panel-kicker"><span class="est-panel-dot" aria-hidden="true"></span>Your build week</span>
+          <p class="sprint-panel-title">Pick when we start</p>
+          <div class="sprint-weeks" id="sprintWeeks" role="radiogroup" aria-label="Preferred start week"></div>
+          <button type="button" class="sprint-flex" id="sprintFlex" role="radio" aria-checked="false">Flexible — whatever opens up</button>
+          <button type="button" class="button button-dark sprint-cta" id="sprintCta">Hold this week — start my brief <span aria-hidden="true">→</span></button>
+          <p class="sprint-note">No card. No deposit. I confirm within one business day — if your week fills up, I’ll offer you the next open one. Your pick rides into the brief automatically.</p>
+          <p class="sprint-echo" id="sprintEcho" role="status" aria-live="polite"></p>
+        </aside>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" aria-labelledby="cta-title">
       <p class="eyebrow reveal"><span class="eyebrow-mark" aria-hidden="true">✦</span> Start a project</p>
       <h2 id="cta-title" class="reveal">Your project brief, <em>in 60 seconds.</em></h2>
@@ -696,6 +739,7 @@
             (check.list.length ? ' — ' + check.list.join('; ') : ' — clean bill of health'));
         }
         if (window.__estimateText) lines.push('Estimate picked: ' + window.__estimateText);
+        if (window.__sprintWeek) lines.push('Preferred start: ' + window.__sprintWeek);
         lines.push('', 'Sent from the 60-second brief builder.');
         return lines.join('\n');
       }
@@ -1173,6 +1217,79 @@
       });
 
       apply();
+    })();
+  </script>
+  <script>
+    (function () {
+      var wrap = document.getElementById('sprintWeeks');
+      var flexBtn = document.getElementById('sprintFlex');
+      var cta = document.getElementById('sprintCta');
+      var echo = document.getElementById('sprintEcho');
+      if (!wrap || !flexBtn || !cta) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Next six Mondays, strictly in the future.
+      var start = new Date();
+      start = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      var offset = (8 - start.getDay()) % 7;
+      if (offset === 0) offset = 7;
+      start.setDate(start.getDate() + offset);
+
+      function fullLabel(d) {
+        return 'Week of ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      }
+      var weeks = [];
+      for (var i = 0; i < 6; i++) {
+        var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i * 7);
+        weeks.push(d);
+      }
+
+      function select(btn, label) {
+        weekButtons.forEach(function (b) { b.setAttribute('aria-checked', b === btn ? 'true' : 'false'); });
+        flexBtn.setAttribute('aria-checked', btn === null ? 'true' : 'false');
+        window.__sprintWeek = label;
+        echo.textContent = 'Held: ' + label + ' — it rides into your brief.';
+      }
+
+      var weekButtons = weeks.map(function (d) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sprint-week';
+        btn.setAttribute('role', 'radio');
+        btn.setAttribute('aria-checked', 'false');
+        btn.setAttribute('aria-label', fullLabel(d));
+        var month = document.createElement('span');
+        month.className = 'sw-month';
+        month.textContent = d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+        var day = document.createElement('span');
+        day.className = 'sw-day';
+        day.textContent = String(d.getDate());
+        var wd = document.createElement('span');
+        wd.className = 'sw-weekday';
+        wd.textContent = 'Week of';
+        btn.appendChild(month);
+        btn.appendChild(day);
+        btn.appendChild(wd);
+        btn.addEventListener('click', function () { select(btn, fullLabel(d)); });
+        wrap.appendChild(btn);
+        return btn;
+      });
+
+      flexBtn.addEventListener('click', function () { select(null, 'Flexible — first opening'); });
+
+      // Pre-hold the earliest week — one less decision, and the brief stays consistent.
+      select(weekButtons[0], fullLabel(weeks[0]));
+
+      cta.addEventListener('click', function () {
+        var brief = document.getElementById('brief');
+        if (brief) {
+          brief.classList.remove('brief-flash');
+          void brief.offsetWidth;
+          brief.classList.add('brief-flash');
+        }
+        var target = document.getElementById('contact');
+        if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
     })();
   </script>
 </body>
