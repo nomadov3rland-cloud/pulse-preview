@@ -268,6 +268,50 @@ html.no-motion .scroll-line::after{animation:none}
 .cta-section .button-dark{background:#14130b;color:var(--yellow);box-shadow:0 6px 0 rgba(0,0,0,.35)}
 .cta-section .button-dark:hover{box-shadow:0 8px 0 rgba(0,0,0,.35)}
 
+/* ---------- 60-second brief builder ---------- */
+.brief{background:#14130b;color:var(--ink);border-radius:6px;padding:clamp(22px,3vw,40px);max-width:880px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.brief .button-dark{background:var(--yellow);color:#14130b;box-shadow:0 6px 0 rgba(0,0,0,.5)}
+.brief .button-dark:hover{box-shadow:0 8px 0 rgba(0,0,0,.5)}
+.brief-progress{display:flex;align-items:center;gap:16px;margin-bottom:clamp(20px,2.4vw,30px)}
+.brief-progress-track{flex:1;height:4px;background:#2c2b21;border-radius:999px;overflow:hidden}
+.brief-progress-fill{height:100%;width:25%;background:var(--yellow);border-radius:999px;transition:width .35s cubic-bezier(.16,1,.3,1)}
+.brief-progress-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a8a794;white-space:nowrap}
+.brief-step{border:0;margin:0;padding:0}
+.brief-step[hidden]{display:none}
+.brief-step legend{font-size:clamp(24px,2.6vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-transform:uppercase;padding:0;margin-bottom:10px;color:var(--ink)}
+.brief-step legend:focus{outline:none}
+.brief-hint{color:#a8a794;font-size:14px;margin:0 0 18px}
+.brief-error{color:#ffb4a8;font-size:13px;font-weight:600;margin:14px 0 0}
+.chip-group{display:flex;flex-wrap:wrap;gap:12px}
+.chip{min-height:48px;padding:0 20px;border-radius:999px;border:1px solid #3a392d;background:#1d1c14;color:var(--ink-2);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .18s ease}
+.chip:hover{border-color:var(--yellow);color:var(--yellow)}
+.chip[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:#14130b}
+.brief-field{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a8a794;margin-bottom:16px}
+.brief-optional{text-transform:none;letter-spacing:0;font-weight:500;color:#7c7b6c}
+.brief-field input{display:block;width:100%;margin-top:8px;min-height:52px;padding:0 16px;background:#1d1c14;border:1px solid #3a392d;border-radius:4px;color:var(--ink);font-size:16px;font-family:inherit;letter-spacing:0;text-transform:none}
+.brief-field input::placeholder{color:#6f6e60}
+.brief-field input:focus{outline:2px solid var(--yellow);outline-offset:2px;border-color:transparent}
+.brief-choice-group{margin-bottom:20px}
+.brief-choice-label{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a8a794;margin-bottom:10px}
+.choice{display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 14px;border:1px solid #3a392d;border-radius:4px;margin-bottom:8px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.choice:hover{border-color:#57564a}
+.choice input{accent-color:var(--yellow);width:18px;height:18px;flex:0 0 auto}
+.choice:has(input:checked){border-color:var(--yellow);background:#221f10}
+.choice span{color:var(--ink-2);font-size:15px}
+.brief-output{width:100%;background:#1d1c14;border:1px solid #3a392d;border-radius:4px;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;padding:16px;resize:vertical}
+.brief-output:focus{outline:2px solid var(--yellow);outline-offset:2px}
+.brief-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+.brief-mailto{border-color:#57564a;color:var(--ink)}
+.brief-mailto:hover{border-color:var(--yellow);color:var(--yellow)}
+.brief-status{min-height:22px;margin:14px 0 0;font-size:13px;font-weight:600;color:var(--yellow)}
+.brief-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;border-top:1px solid #2c2b21;padding-top:18px}
+.brief-back{background:none;border:0;color:#a8a794;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:12px 8px;min-height:44px}
+.brief-back:hover{color:var(--ink)}
+.brief-next{min-height:52px}
+.brief-direct{margin:16px 0 0;font-size:13px;color:#7c7b6c}
+.brief-direct a{color:var(--ink-2);border-bottom:1px solid var(--yellow-deep);padding-bottom:2px}
+.brief-direct a:hover{color:var(--yellow)}
+
 /* ---------- Expansion responsive ---------- */
 @media(max-width:900px){
   .help-grid{grid-template-columns:repeat(2,1fr)}
@@ -278,6 +322,12 @@ html.no-motion .scroll-line::after{animation:none}
 @media(max-width:600px){
   .help-section,.projects-section,.skills-section,.process-section{padding:48px 14px}
   .help-section h2,.projects-head h2,.skills-head h2,.process-head h2,.cta-section h2{font-size:clamp(30px,9vw,42px)}
+  .brief{padding:20px 16px}
+  .brief-actions{flex-direction:column;align-items:stretch}
+  .brief-actions .button{justify-content:center}
+  .brief-nav{flex-direction:column-reverse;align-items:stretch}
+  .brief-back{text-align:center}
+  .brief-next{justify-content:center}
   .help-grid,.project-grid,.skills-grid{grid-template-columns:1fr}
   .process-list{grid-template-columns:1fr;gap:0}
   .process-step{padding:18px 0}

@@ -58,8 +58,8 @@
       <div class="hero-meta">
         <p class="hero-intro reveal">I build fast, modern websites and practical technology solutions for small businesses — so your customers understand what you do and know what to do next.</p>
         <div class="hero-actions reveal">
-          <a class="button button-dark" href="mailto:nomadov3rland@gmail.com?subject=Website%20project%20inquiry">Email me about your project <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#work">Explore the concept websites <span aria-hidden="true">→</span></a>
+          <a class="button button-dark" href="#contact">Start your 60-second brief <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="mailto:nomadov3rland@gmail.com?subject=Website%20project%20inquiry">Or email me directly <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div class="hero-foot reveal">
@@ -272,9 +272,77 @@
 
     <section class="cta-section" id="contact" aria-labelledby="cta-title">
       <p class="eyebrow reveal"><span class="eyebrow-mark" aria-hidden="true">✦</span> Start a project</p>
-      <h2 id="cta-title" class="reveal">Have a business that needs a <em>better website?</em></h2>
-      <p class="cta-sub reveal">Tell me what your business does and I'll show you what I can build for it.</p>
-      <a class="button button-dark reveal" href="mailto:nomadov3rland@gmail.com?subject=Website%20project%20inquiry">Email me about your project <span aria-hidden="true">↗</span></a>
+      <h2 id="cta-title" class="reveal">Your project brief, <em>in 60 seconds.</em></h2>
+      <p class="cta-sub reveal">Four quick questions. I'll turn your answers into a ready-to-send brief — no forms vanishing into the void, nothing sent until you hit send.</p>
+
+      <form class="brief reveal" id="brief" novalidate>
+        <div class="brief-progress" aria-hidden="true">
+          <div class="brief-progress-track"><div class="brief-progress-fill" id="briefFill"></div></div>
+          <span class="brief-progress-label" id="briefStepLabel">Step 1 of 4</span>
+        </div>
+
+        <fieldset class="brief-step" data-step="1">
+          <legend>What do you need?</legend>
+          <p class="brief-hint">Pick everything that applies.</p>
+          <div class="chip-group" id="needChips">
+            <button type="button" class="chip" aria-pressed="false" data-need="New website">New website</button>
+            <button type="button" class="chip" aria-pressed="false" data-need="Website redesign">Website redesign</button>
+            <button type="button" class="chip" aria-pressed="false" data-need="Landing page">Landing page</button>
+            <button type="button" class="chip" aria-pressed="false" data-need="Stripe / payments">Stripe / payments</button>
+            <button type="button" class="chip" aria-pressed="false" data-need="AI / automation">AI / automation</button>
+            <button type="button" class="chip" aria-pressed="false" data-need="Not sure yet">Not sure yet</button>
+          </div>
+          <p class="brief-error" id="needError" role="alert" hidden>Pick at least one — or choose “Not sure yet”.</p>
+        </fieldset>
+
+        <fieldset class="brief-step" data-step="2" hidden>
+          <legend>Tell me about your business</legend>
+          <label class="brief-field">Business name
+            <input type="text" name="business" autocomplete="organization" placeholder="Northwest Lawn Care">
+          </label>
+          <label class="brief-field">What do you do, in one line?
+            <input type="text" name="summary" placeholder="Weekly lawn maintenance for homes in Seattle">
+          </label>
+          <label class="brief-field">Current website <span class="brief-optional">(optional)</span>
+            <input type="text" name="site" inputmode="url" placeholder="yoursite.com — or “none yet”">
+          </label>
+        </fieldset>
+
+        <fieldset class="brief-step" data-step="3" hidden>
+          <legend>Timeline &amp; budget</legend>
+          <p class="brief-hint">Rough is fine — it just sets expectations.</p>
+          <div class="brief-choice-group" role="radiogroup" aria-label="Timeline">
+            <span class="brief-choice-label">Timeline</span>
+            <label class="choice"><input type="radio" name="timeline" value="As soon as possible"><span>As soon as possible</span></label>
+            <label class="choice"><input type="radio" name="timeline" value="Within the next month"><span>Within the next month</span></label>
+            <label class="choice"><input type="radio" name="timeline" value="Flexible — no rush" checked><span>Flexible — no rush</span></label>
+          </div>
+          <div class="brief-choice-group" role="radiogroup" aria-label="Budget">
+            <span class="brief-choice-label">Budget</span>
+            <label class="choice"><input type="radio" name="budget" value="Under $1,000"><span>Under $1,000</span></label>
+            <label class="choice"><input type="radio" name="budget" value="$1,000–$2,500" checked><span>$1,000–$2,500</span></label>
+            <label class="choice"><input type="radio" name="budget" value="$2,500–$5,000"><span>$2,500–$5,000</span></label>
+            <label class="choice"><input type="radio" name="budget" value="Not sure yet"><span>Not sure yet</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="brief-step" data-step="4" hidden>
+          <legend>Your brief, ready to send</legend>
+          <p class="brief-hint">Edit anything below, then copy it or open it in your email app. Nothing is sent until you send it.</p>
+          <textarea class="brief-output" id="briefOutput" rows="9" aria-label="Generated project brief"></textarea>
+          <div class="brief-actions">
+            <button type="button" class="button button-dark brief-copy" id="copyBrief">Copy brief <span aria-hidden="true">⎘</span></button>
+            <a class="button button-ghost brief-mailto" id="mailtoBrief" href="mailto:nomadov3rland@gmail.com">Open in email app <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="brief-status" id="briefStatus" role="status" aria-live="polite"></p>
+        </fieldset>
+
+        <div class="brief-nav">
+          <button type="button" class="brief-back" id="briefBack" hidden>← Back</button>
+          <button type="button" class="button button-dark brief-next" id="briefNext">Continue <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="brief-direct">Prefer to just write? <a href="mailto:nomadov3rland@gmail.com?subject=Website%20project%20inquiry">nomadov3rland@gmail.com</a></p>
+      </form>
     </section>
   </main>
 
@@ -301,6 +369,110 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
       reveal.forEach(function (el) { io.observe(el); });
       setTimeout(function () { reveal.forEach(function (el) { el.classList.add('in'); }); }, 1800);
+    })();
+  </script>
+  <script>
+    (function () {
+      var form = document.getElementById('brief');
+      if (!form) return;
+      var steps = Array.prototype.slice.call(form.querySelectorAll('.brief-step'));
+      var fill = document.getElementById('briefFill');
+      var stepLabel = document.getElementById('briefStepLabel');
+      var backBtn = document.getElementById('briefBack');
+      var nextBtn = document.getElementById('briefNext');
+      var needChips = document.getElementById('needChips');
+      var needError = document.getElementById('needError');
+      var output = document.getElementById('briefOutput');
+      var copyBtn = document.getElementById('copyBrief');
+      var mailtoLink = document.getElementById('mailtoBrief');
+      var status = document.getElementById('briefStatus');
+      var current = 1;
+      var EMAIL = 'nomadov3rland@gmail.com';
+
+      form.addEventListener('submit', function (e) { e.preventDefault(); nextBtn.click(); });
+
+      needChips.addEventListener('click', function (e) {
+        var chip = e.target.closest('.chip');
+        if (!chip) return;
+        chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        needError.hidden = true;
+      });
+
+      function selectedNeeds() {
+        return Array.prototype.slice.call(needChips.querySelectorAll('.chip[aria-pressed="true"]')).map(function (c) { return c.getAttribute('data-need'); });
+      }
+      function field(name) {
+        var el = form.elements[name];
+        return el ? el.value.trim() : '';
+      }
+      function checked(name) {
+        var el = form.querySelector('input[name="' + name + '"]:checked');
+        return el ? el.value : '';
+      }
+
+      function buildBrief() {
+        var needs = selectedNeeds();
+        var business = field('business');
+        var summary = field('summary');
+        var site = field('site');
+        var lines = [
+          'New project brief — ' + (business || 'my business'),
+          '',
+          'What I need: ' + (needs.length ? needs.join(', ') : 'Not specified'),
+          'What we do: ' + (summary || 'Not specified'),
+          'Current site: ' + (site || 'None yet'),
+          'Timeline: ' + (checked('timeline') || 'Flexible'),
+          'Budget: ' + (checked('budget') || 'Not sure yet'),
+          '',
+          'Sent from the 60-second brief builder.'
+        ];
+        return lines.join('\n');
+      }
+
+      function refreshMailto() {
+        var subject = 'Website project inquiry' + (field('business') ? ' — ' + field('business') : '');
+        mailtoLink.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(output.value);
+      }
+
+      function showStep(n) {
+        current = n;
+        steps.forEach(function (s) { s.hidden = Number(s.getAttribute('data-step')) !== n; });
+        fill.style.width = (n / steps.length) * 100 + '%';
+        stepLabel.textContent = 'Step ' + n + ' of ' + steps.length;
+        backBtn.hidden = n === 1;
+        if (n === steps.length) {
+          nextBtn.hidden = true;
+          output.value = buildBrief();
+          refreshMailto();
+        } else {
+          nextBtn.hidden = false;
+          nextBtn.innerHTML = (n === steps.length - 1 ? 'Build my brief <span aria-hidden="true">→</span>' : 'Continue <span aria-hidden="true">→</span>');
+        }
+        var legend = steps[n - 1].querySelector('legend');
+        if (legend) { legend.setAttribute('tabindex', '-1'); legend.focus({ preventScroll: true }); }
+      }
+
+      output.addEventListener('input', refreshMailto);
+
+      nextBtn.addEventListener('click', function () {
+        if (current === 1 && selectedNeeds().length === 0) {
+          needError.hidden = false;
+          needChips.querySelector('.chip').focus();
+          return;
+        }
+        if (current < steps.length) showStep(current + 1);
+      });
+      backBtn.addEventListener('click', function () { if (current > 1) showStep(current - 1); });
+
+      copyBtn.addEventListener('click', function () {
+        var text = output.value;
+        function done() { status.textContent = 'Copied — paste it anywhere, or hit “Open in email app”.'; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { output.select(); document.execCommand('copy'); done(); });
+        } else {
+          output.select(); document.execCommand('copy'); done();
+        }
+      });
     })();
   </script>
 </body>
