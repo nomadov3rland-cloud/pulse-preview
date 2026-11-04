@@ -12,12 +12,13 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="./index.html" aria-label="Travis Weber, home">TW<span class="brand-dot">.</span></a>
-    <details class="nav-menu">
+    <details class="nav-menu" open>
       <summary aria-label="Open menu"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 7h26M3 16h26M3 25h26"/></svg></summary>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#services">Services</a>
         <a href="#work">Concepts</a>
         <a href="#preview">Preview</a>
+        <a href="#site-check">Site check</a>
         <a href="#approach">Approach</a>
         <a href="#about">About</a>
       </nav>
@@ -317,6 +318,74 @@
       </ol>
     </section>
 
+    <section class="leak-section" id="site-check" aria-labelledby="leak-title">
+      <div class="leak-head reveal">
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> The 60-second site check</p>
+        <h2 id="leak-title">Is your site leaking <em>customers?</em></h2>
+        <p class="leak-sub">Six honest questions about your current website. Get an instant leak report — and if you want the leaks plugged, your answers ride along into the brief. No email required to play.</p>
+      </div>
+      <div class="leak-stage reveal">
+        <ol class="leak-questions" id="leakQuestions">
+          <li class="leak-q" data-leak="5-second test failed">
+            <span class="leak-q-num" aria-hidden="true">01</span>
+            <p id="leak-q1">In five seconds, can a stranger tell what you do and who it’s for?</p>
+            <div class="leak-yn" role="group" aria-labelledby="leak-q1">
+              <button type="button" class="yn-btn yn-yes" aria-pressed="false">Yes</button>
+              <button type="button" class="yn-btn yn-no" aria-pressed="false">No</button>
+            </div>
+          </li>
+          <li class="leak-q" data-leak="No visible way to contact you">
+            <span class="leak-q-num" aria-hidden="true">02</span>
+            <p id="leak-q2">On a phone, is your number or a quote/book button visible without scrolling?</p>
+            <div class="leak-yn" role="group" aria-labelledby="leak-q2">
+              <button type="button" class="yn-btn yn-yes" aria-pressed="false">Yes</button>
+              <button type="button" class="yn-btn yn-no" aria-pressed="false">No</button>
+            </div>
+          </li>
+          <li class="leak-q" data-leak="Slow on mobile">
+            <span class="leak-q-num" aria-hidden="true">03</span>
+            <p id="leak-q3">Does your site load fast on a mid-range phone over mobile data?</p>
+            <div class="leak-yn" role="group" aria-labelledby="leak-q3">
+              <button type="button" class="yn-btn yn-yes" aria-pressed="false">Yes</button>
+              <button type="button" class="yn-btn yn-no" aria-pressed="false">No</button>
+            </div>
+          </li>
+          <li class="leak-q" data-leak="Customers can’t book or inquire online">
+            <span class="leak-q-num" aria-hidden="true">04</span>
+            <p id="leak-q4">Can a customer request a quote or book online — without calling, any hour?</p>
+            <div class="leak-yn" role="group" aria-labelledby="leak-q4">
+              <button type="button" class="yn-btn yn-yes" aria-pressed="false">Yes</button>
+              <button type="button" class="yn-btn yn-no" aria-pressed="false">No</button>
+            </div>
+          </li>
+          <li class="leak-q" data-leak="Invisible in local search">
+            <span class="leak-q-num" aria-hidden="true">05</span>
+            <p id="leak-q5">Do you show up when someone nearby searches your service + “near me”?</p>
+            <div class="leak-yn" role="group" aria-labelledby="leak-q5">
+              <button type="button" class="yn-btn yn-yes" aria-pressed="false">Yes</button>
+              <button type="button" class="yn-btn yn-no" aria-pressed="false">No</button>
+            </div>
+          </li>
+          <li class="leak-q" data-leak="Not proud to share it">
+            <span class="leak-q-num" aria-hidden="true">06</span>
+            <p id="leak-q6">Would you hand a prospect your URL right now — without wincing?</p>
+            <div class="leak-yn" role="group" aria-labelledby="leak-q6">
+              <button type="button" class="yn-btn yn-yes" aria-pressed="false">Yes</button>
+              <button type="button" class="yn-btn yn-no" aria-pressed="false">No</button>
+            </div>
+          </li>
+        </ol>
+        <aside class="leak-panel" aria-label="Your leak report">
+          <div class="leak-score"><span id="leakCount">–</span><span class="leak-score-of">leaks found</span></div>
+          <div class="leak-meter" aria-hidden="true"><div class="leak-meter-fill" id="leakFill"></div></div>
+          <h3 class="leak-verdict" id="leakVerdict">Waiting on your answers</h3>
+          <p class="leak-detail" id="leakDetail" role="status" aria-live="polite">Answer the six rows. The meter fills and the verdict updates live — nothing leaves this page.</p>
+          <a class="button button-dark leak-cta" href="#contact" id="leakCta">Plug the leaks — start my brief <span aria-hidden="true">→</span></a>
+          <p class="leak-note">Your leak report is copied into the brief automatically. Nothing is sent until you hit send.</p>
+        </aside>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" aria-labelledby="cta-title">
       <p class="eyebrow reveal"><span class="eyebrow-mark" aria-hidden="true">✦</span> Start a project</p>
       <h2 id="cta-title" class="reveal">Your project brief, <em>in 60 seconds.</em></h2>
@@ -402,6 +471,20 @@
 
   <script>
     (function () {
+      // Desktop shows the full nav (details always open); phone/tablet collapse it behind the hamburger.
+      var menu = document.querySelector('.nav-menu');
+      if (!menu) return;
+      var mql = window.matchMedia('(max-width: 600px)');
+      function sync() {
+        if (mql.matches) { menu.removeAttribute('open'); } else { menu.setAttribute('open', ''); }
+      }
+      if (mql.addEventListener) mql.addEventListener('change', sync);
+      else if (mql.addListener) mql.addListener(sync);
+      sync();
+    })();
+  </script>
+  <script>
+    (function () {
       var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var reveal = document.querySelectorAll('.reveal');
       if (reduced || !('IntersectionObserver' in window)) {
@@ -469,10 +552,14 @@
           'What we do: ' + (summary || 'Not specified'),
           'Current site: ' + (site || 'None yet'),
           'Timeline: ' + (checked('timeline') || 'Flexible'),
-          'Budget: ' + (checked('budget') || 'Not sure yet'),
-          '',
-          'Sent from the 60-second brief builder.'
+          'Budget: ' + (checked('budget') || 'Not sure yet')
         ];
+        var check = (typeof window.__leakCheck === 'function') ? window.__leakCheck() : null;
+        if (check && check.answered > 0) {
+          lines.push('Site check: ' + check.leaks + ' of 6 leaks' +
+            (check.list.length ? ' — ' + check.list.join('; ') : ' — clean bill of health'));
+        }
+        lines.push('', 'Sent from the 60-second brief builder.');
         return lines.join('\n');
       }
 
@@ -577,6 +664,98 @@
           var sField = briefForm.elements['summary'];
           if (bField && business) bField.value = business;
           if (sField && summary) sField.value = summary;
+          briefForm.classList.remove('brief-flash');
+          void briefForm.offsetWidth;
+          briefForm.classList.add('brief-flash');
+        }
+        var target = document.getElementById('contact');
+        if (target) target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      render();
+    })();
+  </script>
+  <script>
+    (function () {
+      var rows = Array.prototype.slice.call(document.querySelectorAll('.leak-q'));
+      if (!rows.length) return;
+      var countEl = document.getElementById('leakCount');
+      var fill = document.getElementById('leakFill');
+      var verdict = document.getElementById('leakVerdict');
+      var detail = document.getElementById('leakDetail');
+      var cta = document.getElementById('leakCta');
+      var state = rows.map(function () { return null; }); // 'yes' | 'no'
+
+      function leakList() {
+        var out = [];
+        rows.forEach(function (row, i) {
+          if (state[i] === 'no') out.push(row.getAttribute('data-leak'));
+        });
+        return out;
+      }
+      function answeredCount() {
+        return state.filter(function (s) { return s !== null; }).length;
+      }
+
+      window.__leakCheck = function () {
+        var list = leakList();
+        return { answered: answeredCount(), leaks: list.length, list: list };
+      };
+
+      var TIERS = [
+        { max: 0, verdict: 'Tight ship.', detail: 'Zero leaks — your site is doing its job. If you want more booked work, the lever is usually speed-to-quote and follow-up, not a redesign.', cta: 'Want a tune-up anyway? Start my brief' },
+        { max: 2, verdict: 'Small leaks, real money.', detail: 'One or two gaps quietly cost you inquiries every month. Each fix is small; together they change what your site returns.', cta: 'Plug the small leaks — start my brief' },
+        { max: 4, verdict: 'You’re losing inquiries.', detail: 'At this level, visitors who should call, don’t — they bounce to a competitor whose site makes the next step obvious. A rebuild usually pays for itself here.', cta: 'Plug the leaks — start my brief' },
+        { max: 6, verdict: 'Your site is working against you.', detail: 'Nearly every tap point is turning people away. Good news: the fix list is clear, and it’s exactly what I build. Let’s scope it.', cta: 'Stop the bleed — start my brief' }
+      ];
+
+      function render() {
+        var answered = answeredCount();
+        var list = leakList();
+        var leaks = list.length;
+        countEl.textContent = answered === 0 ? '–' : String(leaks);
+        fill.style.width = (leaks / rows.length) * 100 + '%';
+        rows.forEach(function (row, i) { row.classList.toggle('is-leak', state[i] === 'no'); });
+
+        if (answered < rows.length) {
+          verdict.textContent = answered === 0 ? 'Waiting on your answers' : 'Keep going — ' + answered + ' of ' + rows.length;
+          detail.textContent = answered === 0
+            ? 'Answer the six rows. The meter fills and the verdict updates live — nothing leaves this page.'
+            : 'Answer all six for the full verdict. So far: ' + leaks + (leaks === 1 ? ' leak' : ' leaks') + ' found.';
+          cta.firstChild.textContent = 'Plug the leaks — start my brief ';
+          return;
+        }
+        var tier = TIERS.filter(function (t) { return leaks <= t.max; })[0];
+        verdict.textContent = tier.verdict;
+        detail.textContent = tier.detail;
+        cta.firstChild.textContent = tier.cta + ' ';
+      }
+
+      rows.forEach(function (row, i) {
+        var yes = row.querySelector('.yn-yes');
+        var no = row.querySelector('.yn-no');
+        function set(value) {
+          state[i] = value;
+          yes.setAttribute('aria-pressed', value === 'yes' ? 'true' : 'false');
+          no.setAttribute('aria-pressed', value === 'no' ? 'true' : 'false');
+          render();
+        }
+        yes.addEventListener('click', function () { set('yes'); });
+        no.addEventListener('click', function () { set('no'); });
+      });
+
+      cta.addEventListener('click', function (e) {
+        e.preventDefault();
+        var check = window.__leakCheck();
+        // A site with leaks wants a redesign; nudge the matching chip if none is pressed.
+        var briefForm = document.getElementById('brief');
+        if (briefForm && check.leaks >= 2) {
+          var anyPressed = briefForm.querySelector('#needChips .chip[aria-pressed="true"]');
+          if (!anyPressed) {
+            var redesign = briefForm.querySelector('#needChips .chip[data-need="Website redesign"]') ||
+                           briefForm.querySelector('#needChips .chip[data-need="New website"]');
+            if (redesign) redesign.setAttribute('aria-pressed', 'true');
+          }
           briefForm.classList.remove('brief-flash');
           void briefForm.offsetWidth;
           briefForm.classList.add('brief-flash');

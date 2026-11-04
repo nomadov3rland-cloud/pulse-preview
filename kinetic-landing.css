@@ -200,6 +200,36 @@ h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em;line-height:.96}
 @keyframes pvPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,208,47,0)}30%{box-shadow:0 0 0 4px rgba(255,208,47,.65)}}
 .brief-flash{animation:pvPulse 1.2s ease 2;border-radius:4px}
 
+/* ---------- Leak check ---------- */
+.leak-section{padding:clamp(56px,7vw,104px) clamp(18px,5vw,72px);border-bottom:1px solid var(--line)}
+.leak-head{max-width:880px;margin-bottom:clamp(32px,4vw,52px)}
+.leak-head h2{font-size:clamp(38px,4.4vw,68px);line-height:1.02;text-transform:uppercase}
+.leak-head h2 em{font-style:normal;color:var(--yellow)}
+.leak-sub{margin:18px 0 0;max-width:600px;color:var(--muted);font-size:15px;line-height:1.65}
+.leak-stage{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,4vw,56px);align-items:start}
+.leak-questions{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.leak-q{display:grid;grid-template-columns:56px 1fr auto;gap:18px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.leak-q-num{font-size:12px;font-weight:800;color:var(--yellow);width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;transition:border-color .2s ease,color .2s ease}
+.leak-q p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.leak-q.is-leak .leak-q-num{border-color:#ff8a7a;color:#ffb4a8}
+.leak-q.is-leak p{color:var(--ink)}
+.leak-yn{display:flex;gap:10px}
+.yn-btn{min-width:66px;min-height:48px;padding:0 16px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2);border-radius:3px;font:inherit;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .18s ease}
+.yn-btn:hover{border-color:#3a3f4c;color:var(--ink)}
+.yn-yes[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:#14130b}
+.yn-no[aria-pressed="true"]{background:transparent;border-color:#ff8a7a;color:#ffb4a8}
+.yn-yes:focus-visible,.yn-no:focus-visible{outline:3px solid var(--yellow-deep);outline-offset:2px}
+.leak-panel{position:sticky;top:96px;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;padding:clamp(22px,2.6vw,34px)}
+.leak-score{display:flex;align-items:baseline;gap:14px}
+.leak-score #leakCount{font-size:clamp(88px,9vw,128px);font-weight:800;line-height:.85;letter-spacing:-.05em;color:var(--yellow);font-variant-numeric:tabular-nums}
+.leak-score-of{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);max-width:9ch;line-height:1.5}
+.leak-meter{height:6px;background:var(--bg-3);border-radius:999px;overflow:hidden;margin:22px 0}
+.leak-meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--yellow-deep),var(--yellow));border-radius:999px;transition:width .45s cubic-bezier(.16,1,.3,1)}
+.leak-verdict{font-size:clamp(19px,1.9vw,26px);line-height:1.15;text-transform:uppercase;margin-bottom:12px;min-height:2.3em}
+.leak-detail{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 20px;min-height:4.9em}
+.leak-cta{justify-content:center;width:100%}
+.leak-note{margin:12px 0 0;font-size:12px;color:#7c808c;text-align:center}
+
 /* ---------- Motion ---------- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
@@ -214,11 +244,16 @@ html.no-motion .scroll-line::after{animation:none}
   .marquee-track{animation:none}
   .scroll-line::after{animation:none}
   .brief-flash{animation:none}
+  .leak-meter-fill{transition:none}
 }
 
 /* ---------- Responsive ---------- */
 @media(max-width:900px){
   .preview-stage{grid-template-columns:1fr}
+  .leak-stage{grid-template-columns:1fr}
+  .leak-panel{position:static}
+  .leak-verdict{min-height:0}
+  .leak-detail{min-height:0}
   .mini-site{min-height:0}
   .hero-meta{flex-direction:column;align-items:flex-start;gap:28px}
   .offer-grid{grid-template-columns:1fr}
@@ -247,8 +282,11 @@ html.no-motion .scroll-line::after{animation:none}
   .hero-intro{font-size:15px}
   .hero-actions{gap:20px}
   .hero-foot{gap:14px}
-  .offer-section,.work-section,.approach-section,.about-section,.preview-section{padding:48px 14px}
-  .offer-grid h2,.work-head h2,.approach-head h2,.about-grid h2,.preview-head h2{font-size:clamp(30px,9vw,42px)}
+  .offer-section,.work-section,.approach-section,.about-section,.preview-section,.leak-section{padding:48px 14px}
+  .leak-q{grid-template-columns:44px 1fr;row-gap:12px}
+  .leak-yn{grid-column:2}
+  .yn-btn{flex:1;min-height:52px}
+  .offer-grid h2,.work-head h2,.approach-head h2,.about-grid h2,.preview-head h2,.leak-head h2{font-size:clamp(30px,9vw,42px)}
   .mini-cards{grid-template-columns:1fr;gap:8px}
   .mini-card i{display:none}
   .mini-links{display:none}
