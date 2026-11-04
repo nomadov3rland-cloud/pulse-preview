@@ -17,6 +17,7 @@
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#services">Services</a>
         <a href="#work">Concepts</a>
+        <a href="#preview">Preview</a>
         <a href="#approach">Approach</a>
         <a href="#about">About</a>
       </nav>
@@ -170,9 +171,55 @@
       </article>
     </section>
 
+    <section class="preview-section" id="preview" aria-labelledby="preview-title">
+      <div class="preview-head reveal">
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 02 / The 10-second preview</p>
+        <h2 id="preview-title">See your site <em>before you email.</em></h2>
+        <p class="preview-sub">Type your business name and what you do — pick a look. A miniature of your homepage renders live, right here. No email required, no commitment.</p>
+      </div>
+      <div class="preview-stage reveal">
+        <form class="preview-controls" id="previewForm">
+          <label class="pv-field">Business name
+            <input type="text" id="pvName" name="pvName" maxlength="42" autocomplete="organization" placeholder="Northwest Lawn Care">
+          </label>
+          <label class="pv-field">What you do, in one line
+            <input type="text" id="pvTagline" name="pvTagline" maxlength="90" placeholder="Weekly lawn maintenance for homes in Seattle">
+          </label>
+          <div class="pv-themes" role="radiogroup" aria-label="Visual style">
+            <span class="pv-themes-label">Pick a look</span>
+            <button type="button" class="pv-theme is-active" role="radio" aria-checked="true" data-theme="bold"><span class="pv-swatch pv-swatch-bold" aria-hidden="true"></span>Bold &amp; Dark</button>
+            <button type="button" class="pv-theme" role="radio" aria-checked="false" data-theme="fresh"><span class="pv-swatch pv-swatch-fresh" aria-hidden="true"></span>Clean &amp; Fresh</button>
+            <button type="button" class="pv-theme" role="radio" aria-checked="false" data-theme="warm"><span class="pv-swatch pv-swatch-warm" aria-hidden="true"></span>Warm &amp; Local</button>
+          </div>
+          <button type="submit" class="button button-dark pv-use" id="pvUse">Use this as my starting point <span aria-hidden="true">→</span></button>
+          <p class="pv-note">It's a sketch, not a finished design — it just proves the direction before we talk.</p>
+        </form>
+        <div class="browser" id="pvBrowser" data-theme="bold" role="img" aria-label="Live miniature preview of your homepage">
+          <div class="browser-bar" aria-hidden="true">
+            <span class="browser-dots"><i></i><i></i><i></i></span>
+            <span class="browser-url" id="pvUrl">yourbusiness.com</span>
+          </div>
+          <div class="mini-site" aria-hidden="true">
+            <div class="mini-nav"><strong id="pvBrand">Your Business</strong><span class="mini-links">Services&nbsp;&nbsp;About&nbsp;&nbsp;Contact</span></div>
+            <div class="mini-hero">
+              <p class="mini-eyebrow" id="pvEyebrow">YOUR BUSINESS</p>
+              <p class="mini-headline" id="pvHeadline">Work that speaks for itself.</p>
+              <span class="mini-cta">Get a free quote</span>
+            </div>
+            <div class="mini-cards">
+              <div class="mini-card"><span class="mini-card-num">01</span><b>Fast response</b><i>Same-week scheduling, real timelines.</i></div>
+              <div class="mini-card"><span class="mini-card-num">02</span><b>Upfront pricing</b><i>Clear quotes before any work starts.</i></div>
+              <div class="mini-card"><span class="mini-card-num">03</span><b>Local &amp; trusted</b><i>Referral-based, five-star work.</i></div>
+            </div>
+            <div class="mini-foot">© 2026 <span id="pvFoot">Your Business</span>&nbsp; · &nbsp;Serving your area&nbsp; · &nbsp;Get in touch</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="approach-section" id="approach" aria-labelledby="approach-title">
       <div class="approach-head reveal">
-        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 02 / Design lens</p>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 03 / Design lens</p>
         <h2 id="approach-title">Make the next decision <em>easy.</em></h2>
       </div>
       <div class="principle-list">
@@ -185,7 +232,7 @@
     <section class="about-section" id="about" aria-labelledby="about-title">
       <div class="about-grid">
         <div class="reveal">
-          <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 03 / About me</p>
+          <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 04 / About me</p>
           <h2 id="about-title">Turn your ideas into<br><em>a website that works.</em></h2>
         </div>
         <div class="about-copy reveal">
@@ -200,7 +247,7 @@
 
     <section class="projects-section" id="projects" aria-labelledby="projects-title">
       <div class="projects-head reveal">
-        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 04 / Technical projects</p>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 05 / Technical projects</p>
         <h2 id="projects-title">Beyond websites — <em>hands-on builds.</em></h2>
       </div>
       <div class="project-grid">
@@ -225,7 +272,7 @@
 
     <section class="skills-section" id="skills" aria-labelledby="skills-title">
       <div class="skills-head reveal">
-        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 05 / Skills</p>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 06 / Skills</p>
         <h2 id="skills-title">What I work with <em>day to day.</em></h2>
       </div>
       <div class="skills-grid">
@@ -258,7 +305,7 @@
 
     <section class="process-section" id="process" aria-labelledby="process-title">
       <div class="process-head reveal">
-        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 06 / How I work</p>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> 07 / How I work</p>
         <h2 id="process-title">From idea to <em>finished site.</em></h2>
       </div>
       <ol class="process-list">
@@ -473,6 +520,72 @@
           output.select(); document.execCommand('copy'); done();
         }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      var nameInput = document.getElementById('pvName');
+      var taglineInput = document.getElementById('pvTagline');
+      var browser = document.getElementById('pvBrowser');
+      var form = document.getElementById('previewForm');
+      if (!nameInput || !taglineInput || !browser || !form) return;
+
+      var urlEl = document.getElementById('pvUrl');
+      var brandEl = document.getElementById('pvBrand');
+      var eyebrowEl = document.getElementById('pvEyebrow');
+      var headlineEl = document.getElementById('pvHeadline');
+      var footEl = document.getElementById('pvFoot');
+      var themeButtons = Array.prototype.slice.call(form.querySelectorAll('.pv-theme'));
+      var FALLBACK_NAME = 'Your Business';
+      var FALLBACK_HEADLINE = 'Work that speaks for itself.';
+
+      function currentName() { return nameInput.value.trim() || FALLBACK_NAME; }
+      function currentHeadline() { return taglineInput.value.trim() || FALLBACK_HEADLINE; }
+      function slugify(name) {
+        var slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '').slice(0, 26);
+        return (slug || 'yourbusiness') + '.com';
+      }
+      function render() {
+        var name = currentName();
+        brandEl.textContent = name;
+        eyebrowEl.textContent = name.toUpperCase();
+        headlineEl.textContent = currentHeadline();
+        footEl.textContent = name;
+        urlEl.textContent = slugify(name);
+      }
+      nameInput.addEventListener('input', render);
+      taglineInput.addEventListener('input', render);
+
+      themeButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          browser.setAttribute('data-theme', btn.getAttribute('data-theme'));
+          themeButtons.forEach(function (b) {
+            var active = b === btn;
+            b.classList.toggle('is-active', active);
+            b.setAttribute('aria-checked', active ? 'true' : 'false');
+          });
+        });
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var business = nameInput.value.trim();
+        var summary = taglineInput.value.trim();
+        var briefForm = document.getElementById('brief');
+        if (briefForm) {
+          var bField = briefForm.elements['business'];
+          var sField = briefForm.elements['summary'];
+          if (bField && business) bField.value = business;
+          if (sField && summary) sField.value = summary;
+          briefForm.classList.remove('brief-flash');
+          void briefForm.offsetWidth;
+          briefForm.classList.add('brief-flash');
+        }
+        var target = document.getElementById('contact');
+        if (target) target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      render();
     })();
   </script>
 </body>
