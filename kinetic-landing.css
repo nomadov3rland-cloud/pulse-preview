@@ -534,3 +534,129 @@ html.no-motion .scroll-line::after{animation:none}
   .est-type,.est-addon{transition:none}
   .est-panel-dot{animation:none}
 }
+
+/* ---------- The 10-second glow-up (before/after rebuild) ---------- */
+.glowup-section{padding:clamp(56px,7vw,104px) clamp(18px,5vw,72px) clamp(48px,5vw,72px);border-bottom:1px solid var(--line)}
+.glowup-head{max-width:900px;margin-bottom:clamp(28px,3.5vw,44px)}
+.glowup-head h2{font-size:clamp(38px,4.6vw,72px);line-height:1.0;text-transform:uppercase}
+.glowup-head h2 em{font-style:normal;color:var(--yellow)}
+.glowup-sub{max-width:520px;margin:18px 0 0;font-size:clamp(15px,1.3vw,18px);line-height:1.6;color:var(--ink-2)}
+
+.glowup-stage{--split:56%}
+.glowup-frame{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#000;box-shadow:0 40px 80px -40px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.03) inset;aspect-ratio:16/10;min-height:520px;user-select:none;-webkit-user-select:none}
+.gu-site{position:absolute;inset:0;overflow:hidden}
+
+/* AFTER — the rebuild (underlay) */
+.gu-after{background:linear-gradient(160deg,#14161d 0%,#191c25 55%,#14161d 100%);color:#f4f4ef;display:flex;flex-direction:column;font-family:var(--sans);text-align:right}
+.gu-a-nav{display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:clamp(12px,1.6vw,20px) clamp(16px,2.2vw,32px);padding-right:clamp(104px,10vw,150px);border-bottom:1px solid rgba(255,255,255,.08)}
+.gu-a-logo{font-weight:800;font-size:clamp(15px,1.6vw,21px);letter-spacing:-.03em}
+.gu-a-logo i{font-style:normal;color:var(--yellow)}
+.gu-a-phone{display:inline-flex;align-items:center;gap:8px;font-size:clamp(11px,1.1vw,13px);font-weight:700;color:#14130b;background:var(--yellow);border-radius:3px;padding:8px 12px;white-space:nowrap}
+.gu-a-phone svg{width:14px;height:14px}
+.gu-a-hero{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding:clamp(14px,2.4vw,34px) clamp(16px,2.6vw,40px)}
+.gu-a-eyebrow{margin:0 0 clamp(8px,1vw,14px);font-size:clamp(8px,.85vw,10px);font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow)}
+.gu-a-head{margin:0;font-size:clamp(34px,5.2vw,76px);line-height:.97;font-weight:800;letter-spacing:-.035em;text-transform:uppercase}
+.gu-a-head i{font-style:normal;color:var(--yellow)}
+.gu-a-sub{margin:clamp(10px,1.2vw,16px) 0 0;margin-left:auto;font-size:clamp(10px,1.05vw,13px);color:#c9ccd4;max-width:52ch;line-height:1.55}
+.gu-a-ctas{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin-top:clamp(12px,1.6vw,22px);flex-wrap:wrap}
+.gu-a-cta{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:#14130b;font-weight:800;font-size:clamp(11px,1.1vw,14px);border-radius:3px;padding:clamp(10px,1vw,14px) clamp(14px,1.5vw,22px);box-shadow:0 4px 0 rgba(0,0,0,.5)}
+.gu-a-cta b{font-size:1.15em;line-height:1}
+.gu-a-ghost{font-size:clamp(10px,1vw,12px);font-weight:700;color:#f4f4ef;border:1px solid rgba(255,255,255,.28);border-radius:3px;padding:clamp(9px,.9vw,13px) clamp(12px,1.3vw,18px)}
+.gu-a-strip{display:flex;gap:8px;align-items:center;justify-content:flex-end;padding:clamp(10px,1.2vw,16px) clamp(16px,2.2vw,32px);border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.gu-a-strip span{font-size:clamp(8px,.85vw,10px);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#c9ccd4;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.gu-a-strip .gu-a-lic{color:var(--yellow);border-color:rgba(255,208,47,.4)}
+.gu-toast{position:absolute;right:clamp(12px,1.6vw,22px);bottom:clamp(52px,6vw,72px);display:flex;align-items:center;gap:10px;max-width:min(320px,72%);background:rgba(20,22,28,.92);border:1px solid rgba(255,208,47,.45);border-radius:8px;padding:10px 14px;font-size:clamp(9px,.95vw,11px);font-weight:600;color:#f4f4ef;box-shadow:0 12px 30px rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+.gu-toast-dot{width:9px;height:9px;border-radius:50%;background:#3ddc84;flex:0 0 auto;animation:dockPulse 1.6s ease-in-out infinite}
+
+/* BEFORE — the 2004 special (overlay, clipped by --split) */
+.gu-before{background:#d9cfb4;color:#3a352a;font-family:Georgia,'Times New Roman',Times,serif;clip-path:inset(0 calc(100% - var(--split)) 0 0);display:flex;flex-direction:column;padding:10px 12px 8px;font-size:11px}
+.gu-before a,.gu-b-fakelink{color:#1a0dab;text-decoration:underline;cursor:default}
+.gu-b-topbar{text-align:center;border-bottom:2px solid #8a8272;padding-bottom:6px;margin-bottom:6px}
+.gu-b-topbar span{display:block;font-size:clamp(11px,1.3vw,16px);font-weight:700;letter-spacing:.06em;color:#4a4436}
+.gu-b-topbar nav{font-size:clamp(7px,.8vw,10px);margin-top:4px;color:#1a0dab}
+.gu-b-banner{text-align:center;background:#a00;color:#ffe95a;font-weight:700;font-family:var(--sans);font-size:clamp(8px,1.05vw,12px);letter-spacing:.05em;padding:6px 8px;margin-bottom:8px;animation:guBlink 1.2s ease-in-out infinite}
+@keyframes guBlink{0%,100%{opacity:1}50%{opacity:.45}}
+.gu-b-main{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;gap:8px;min-height:0;max-width:min(600px,100%)}
+.gu-b-ad{width:100%;border:1px dashed #8a8272;background:#f5efdd;text-align:center;padding:6px 10px;font-family:var(--sans);margin-top:2px}
+.gu-b-ad small{display:block;font-size:clamp(6px,.62vw,7px);letter-spacing:.28em;color:#8a8272;text-transform:uppercase;margin-bottom:2px}
+.gu-b-ad span{font-size:clamp(9px,1.15vw,13px);font-weight:800;color:#a00;letter-spacing:.02em}
+.gu-b-ad em{display:block;font-style:normal;font-size:clamp(7px,.8vw,9px);color:#5a5442;margin-top:2px}
+.gu-b-call{align-self:center;font-family:var(--sans);font-weight:800;font-size:clamp(11px,1.5vw,17px);letter-spacing:.05em;color:#fff;background:linear-gradient(180deg,#f60,#c30);border:3px ridge #ffb84d;border-radius:10px;padding:clamp(6px,.9vw,10px) clamp(14px,2vw,26px);text-shadow:1px 1px 0 #600;box-shadow:0 3px 0 #7a3a00;margin-top:2px;white-space:nowrap}
+.gu-b-col h4{margin:0 0 4px;font-size:clamp(14px,1.9vw,24px);color:#6b1d1d;text-decoration:underline}
+.gu-b-welcome{font-size:clamp(8px,.95vw,11px);line-height:1.35;margin:0 0 6px;color:#3a352a}
+.gu-b-table{border-collapse:collapse;font-size:clamp(7px,.85vw,10px);background:#efe8d6;border:2px ridge #8a8272;margin-bottom:6px}
+.gu-b-table th{background:#6b1d1d;color:#ffe95a;font-size:clamp(8px,.95vw,11px);padding:3px 10px;letter-spacing:.08em}
+.gu-b-table td{border:1px solid #b9b09a;padding:2px 10px}
+.gu-b-note{font-size:clamp(7px,.8vw,9px);font-style:italic;color:#5a5442;margin:0}
+.gu-b-side{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px}
+.gu-b-side .gu-b-box{flex:1 1 22%;min-width:96px}
+.gu-b-box{border:2px ridge #8a8272;background:#efe8d6;padding:5px 6px;text-align:center;font-family:var(--sans)}
+.gu-b-box b{display:block;font-size:clamp(6px,.7vw,8px);letter-spacing:.14em;color:#5a5442;margin-bottom:3px}
+.gu-b-count{display:inline-block;background:#14130b;color:#3ddc84;font-family:'Courier New',monospace;font-size:clamp(10px,1.3vw,15px);letter-spacing:.3em;padding:2px 6px 2px 10px}
+.gu-b-construction{background:repeating-linear-gradient(45deg,#ffd02f 0 12px,#14130b 12px 24px);color:#fff;font-weight:800;font-size:clamp(9px,1.2vw,13px);letter-spacing:.1em;text-shadow:1px 1px 0 #000;padding:10px 6px;line-height:1.4}
+.gu-b-guest a{font-size:clamp(8px,.9vw,11px)}
+.gu-b-ie{font-size:clamp(6px,.7vw,8px);color:#5a5442;letter-spacing:.06em;line-height:1.6}
+.gu-b-award{display:flex;flex-direction:column;align-items:center;justify-content:center;width:clamp(64px,6.4vw,88px);height:clamp(64px,6.4vw,88px);border:3px double #6b1d1d;border-radius:50%;transform:rotate(-9deg);font-family:var(--sans);text-align:center;font-weight:800;color:#6b1d1d;font-size:clamp(6px,.65vw,8px);letter-spacing:.08em;line-height:1.5;text-transform:uppercase;margin-top:2px;background:#efe8d6}
+.gu-b-award b{font-size:clamp(9px,1vw,12px);color:#a00;letter-spacing:0}
+.gu-b-links{font-size:clamp(7px,.8vw,9px);line-height:1.9;text-align:left}
+.gu-b-links b{display:block;text-align:center}
+.gu-b-foot{border-top:1px solid #8a8272;padding-top:5px;margin-top:6px;font-size:clamp(6px,.72vw,8px);text-align:center;color:#5a5442;font-family:var(--sans)}
+
+/* Numbered pins on the BEFORE side — they clip away as you drag */
+.gu-pin{position:absolute;width:clamp(20px,2vw,26px);height:clamp(20px,2vw,26px);border-radius:50%;background:#c1272d;color:#fff;font-family:var(--sans);font-weight:800;font-size:clamp(11px,1.1vw,13px);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(193,39,45,.3),0 2px 6px rgba(0,0,0,.4);animation:guPinPulse 2s ease-in-out infinite}
+@keyframes guPinPulse{0%,100%{box-shadow:0 0 0 2px rgba(193,39,45,.35),0 2px 6px rgba(0,0,0,.4)}50%{box-shadow:0 0 0 6px rgba(193,39,45,.18),0 2px 6px rgba(0,0,0,.4)}}
+.gu-pin-1{top:25%;left:29%}
+.gu-pin-2{top:33.5%;left:16.5%}
+.gu-pin-3{bottom:1.5%;left:46%}
+
+/* Drag handle + invisible full-cover range input */
+.gu-range{position:absolute;inset:0;z-index:5;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none}
+.gu-range::-webkit-slider-thumb{-webkit-appearance:none;width:100%;height:100%}
+.gu-range::-moz-range-thumb{width:100%;height:100%;border:0;background:transparent}
+.gu-handle{position:absolute;z-index:4;top:0;bottom:0;left:var(--split);width:0;pointer-events:none}
+.gu-handle::before{content:"";position:absolute;top:0;bottom:0;left:-1.5px;width:3px;background:var(--yellow);box-shadow:0 0 12px rgba(0,0,0,.6)}
+.gu-handle-knob{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:clamp(48px,4.6vw,60px);height:clamp(48px,4.6vw,60px);border-radius:50%;background:var(--yellow);color:#14130b;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 rgba(0,0,0,.55),0 0 0 4px rgba(14,15,18,.35)}
+.gu-handle-knob svg{width:55%;height:55%}
+.gu-range:focus-visible + .gu-handle .gu-handle-knob{outline:3px solid #fff;outline-offset:3px}
+
+/* Before/After chips */
+.gu-chip{position:absolute;z-index:4;top:clamp(10px,1.4vw,18px);font-family:var(--sans);font-size:clamp(9px,.95vw,11px);font-weight:800;letter-spacing:.22em;text-transform:uppercase;border-radius:3px;padding:7px 14px;pointer-events:none}
+.gu-chip-before{left:clamp(10px,1.4vw,18px);background:#c1272d;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.gu-chip-after{right:clamp(10px,1.4vw,18px);background:var(--yellow);color:#14130b;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+
+/* Foot row: what's wrong + CTA */
+.glowup-foot{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center;margin-top:clamp(22px,2.6vw,34px)}
+.glowup-leaks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.glowup-leaks li{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:clamp(13px,1.15vw,15px);color:var(--ink-2);line-height:1.45}
+.glowup-leaks li:last-child{border-bottom:0}
+.glowup-leaks li span{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:#c1272d;color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.glowup-cta-col{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.glowup-cta{min-height:56px}
+.glowup-cta-note{margin:0;font-size:13px;line-height:1.55;color:var(--muted);max-width:46ch}
+.glowup-caption{margin:clamp(18px,2vw,26px) 0 0;font-size:11px;letter-spacing:.06em;color:#6f727c;text-align:center}
+
+@media(max-width:900px){
+  .glowup-frame{aspect-ratio:auto;min-height:600px}
+  .glowup-foot{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .glowup-section{padding:48px 14px 40px}
+  .gu-a-head{font-size:clamp(24px,7.6vw,30px)}
+  .gu-a-sub{font-size:9px;max-width:34ch}
+  .gu-a-eyebrow{font-size:7px}
+  .gu-a-ghost{display:none}
+  .gu-a-phone{padding:6px 8px;font-size:10px}
+  .gu-a-nav{gap:10px;padding-right:84px}
+  .glowup-head h2{font-size:clamp(30px,9.4vw,42px)}
+  .glowup-frame{min-height:540px}
+  .gu-b-main{grid-template-columns:1.35fr 1fr;gap:8px}
+  .gu-a-strip .gu-a-lic{display:none}
+  .gu-toast{max-width:88%;bottom:56px}
+  .gu-pin-1{left:40%}
+  .gu-pin-2{left:14%}
+  .glowup-cta{width:100%;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+  .gu-b-banner,.gu-b-call{animation:none}
+  .gu-pin,.gu-toast-dot{animation:none}
+}
