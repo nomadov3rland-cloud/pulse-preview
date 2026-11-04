@@ -58,7 +58,7 @@
               <span class="mock-head">A green lawn,<br>handled.</span>
               <span class="mock-ctas"><span class="mock-cta">Book a visit <b>→</b></span><span class="mock-ghost">See pricing</span></span>
             </span>
-            <span class="mock-strip"><span>Mowing</span><span>Edging</span><span>Seasonal cleanup</span><span>4.9 ★ · 380+ Seattle homes</span></span>
+            <span class="mock-strip"><span>Mowing</span><span>Edging</span><span>Cleanup</span><span>4.9 ★ · 380+ lawns</span></span>
           </span>
         </span>
         <span class="mock-toast" aria-hidden="true"><span class="mock-toast-dot"></span>New booking — Weekly mow · Sat 9:00 AM</span>
@@ -577,9 +577,72 @@
           <div class="sprint-weeks" id="sprintWeeks" role="radiogroup" aria-label="Preferred start week"></div>
           <button type="button" class="sprint-flex" id="sprintFlex" role="radio" aria-checked="false">Flexible — whatever opens up</button>
           <button type="button" class="button button-dark sprint-cta" id="sprintCta">Hold this week — start my brief <span aria-hidden="true">→</span></button>
-          <p class="sprint-note">No card. No deposit. I confirm within one business day — if your week fills up, I’ll offer you the next open one. Your pick rides into the brief automatically.</p>
+          <p class="sprint-note">No card. No deposit. I confirm within one business day — if your week fills up, I’ll offer you the next open one. Your pick rides into the brief automatically. <a class="sprint-agreement-link" href="#agreement">Or read the actual one-page agreement first <span aria-hidden="true">↓</span></a></p>
           <p class="sprint-echo" id="sprintEcho" role="status" aria-live="polite"></p>
         </aside>
+      </div>
+    </section>
+
+    <section class="agreement-section" id="agreement" aria-labelledby="agreement-title">
+      <div class="agreement-head reveal">
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> The fine print — all of it</p>
+        <h2 id="agreement-title">The agreement,<br><em>before you ask.</em></h2>
+        <p class="agreement-sub">Every other freelancer shows you the contract after you’ve said yes. Mine fits on one page, says exactly what this site says everywhere else, and you can read it right now — no email, no handshake, no "just sign here."</p>
+      </div>
+      <div class="agreement-stage reveal">
+        <div class="agreement-controls">
+          <label class="agreement-field" for="agName">Your business name
+            <input type="text" id="agName" maxlength="60" autocomplete="organization" placeholder="Northwest Lawn Care" aria-describedby="agNameHint">
+          </label>
+          <p class="agreement-field-hint" id="agNameHint">Type it — the paper on the right writes itself.</p>
+          <ul class="agreement-points">
+            <li>One page. Seven clauses. Zero legalese.</li>
+            <li>The same terms whether you hire me or not.</li>
+            <li>Nothing is signed until your written quote is approved.</li>
+          </ul>
+          <div class="agreement-sign">
+            <div class="agreement-sign-head">
+              <span class="agreement-sign-label" id="agSignLabel">Try it — sign the preview</span>
+              <button type="button" class="agreement-clear" id="agClear" hidden>Clear</button>
+            </div>
+            <canvas class="agreement-pad" id="agPad" width="520" height="132" role="application" aria-label="Signature pad — draw your signature with a mouse, finger or stylus"></canvas>
+            <label class="agreement-typesign-wrap" for="agTypeSign"><span class="agreement-typesign-or">…or type it</span>
+              <input type="text" class="agreement-typesign" id="agTypeSign" maxlength="48" placeholder="Your Name" autocomplete="name">
+            </label>
+            <p class="agreement-sign-note" id="agSignNote">Your mark never leaves this page — it’s a preview, not a signature.</p>
+          </div>
+          <div class="agreement-actions">
+            <a class="button button-dark agreement-cta" href="#contact" id="agCta">Put my name on it — start my brief <span aria-hidden="true">→</span></a>
+            <button type="button" class="button button-ghost agreement-copy" id="agCopy">Copy these terms <span aria-hidden="true">⎘</span></button>
+          </div>
+          <p class="agreement-status" id="agStatus" role="status" aria-live="polite"></p>
+        </div>
+        <div class="agreement-doc-wrap">
+          <div class="agreement-doc" id="agDoc" role="document" aria-label="Preview of the plain-English website design agreement">
+            <div class="ad-head">
+              <span class="ad-kicker">Travis Weber — Website Design</span>
+              <span class="ad-title">The Agreement</span>
+              <span class="ad-sub">Plain English · one page · no legalese</span>
+            </div>
+            <p class="ad-parties">Between <b>Travis Weber</b> (“Designer”) and <b class="ag-party">Your Business</b> (“Client”) · <span id="agDate"></span></p>
+            <ol class="ad-clauses">
+              <li><b>Fixed price, in writing.</b> The quote you approve is the price. It never creeps. If the work changes, we re-scope in writing before any work happens.</li>
+              <li><b>Draft first, pay second.</b> You see and approve the first full draft before paying anything.</li>
+              <li><b>Free revisions.</b> I revise until the draft matches your brief. Included — never billed.</li>
+              <li><b>The walk-away.</b> If the first draft misses your brief, you pass and you owe nothing.</li>
+              <li><b>You own it all.</b> Code, copy, domain, photos and logins are yours. No hostage fees, no lock-in.</li>
+              <li><b>Dates in writing.</b> Start week and draft date are set in writing at kickoff. If anything slips, you hear it from me first — never silence.</li>
+              <li><b>Out of scope, never sprung.</b> Hosting, domains, paid licenses and anything outside the written quote are priced before they’re added — never sprung on you.</li>
+            </ol>
+            <p class="ad-walk">Either of us can walk away before the first draft — no invoice, no hard feelings.</p>
+            <div class="ad-signatures">
+              <div class="ad-sig"><span class="ad-sig-script ad-sig-pre">Travis Weber</span><span class="ad-sig-line"><i aria-hidden="true"></i>Travis Weber · Designer</span></div>
+              <div class="ad-sig"><span class="ad-sig-script" id="agSigScript"></span><span class="ad-sig-line"><i aria-hidden="true"></i><span class="ag-party">Your Business</span> · Client</span></div>
+            </div>
+            <div class="ad-stamp" aria-hidden="true"><span>NO<br>FINE<br>PRINT</span></div>
+          </div>
+          <p class="agreement-doc-caption">The real paper matches this word for word — it’s signed only after you approve the written quote.</p>
+        </div>
       </div>
     </section>
 
@@ -711,6 +774,182 @@
   </script>
   <script>
     (function () {
+      var section = document.getElementById('agreement');
+      if (!section) return;
+      var nameInput = document.getElementById('agName');
+      var partyEls = Array.prototype.slice.call(section.querySelectorAll('.ag-party'));
+      var dateEl = document.getElementById('agDate');
+      var sigScript = document.getElementById('agSigScript');
+      var typeSign = document.getElementById('agTypeSign');
+      var pad = document.getElementById('agPad');
+      var clearBtn = document.getElementById('agClear');
+      var signNote = document.getElementById('agSignNote');
+      var status = document.getElementById('agStatus');
+      var copyBtn = document.getElementById('agCopy');
+      var cta = document.getElementById('agCta');
+      var FALLBACK_PARTY = 'Your Business';
+      var drawn = false;
+
+      var today = new Date();
+      var dateLabel = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      if (dateEl) dateEl.textContent = dateLabel;
+
+      function currentParty() {
+        var v = nameInput ? nameInput.value.trim() : '';
+        return v || FALLBACK_PARTY;
+      }
+      function renderParties() {
+        var name = currentParty();
+        partyEls.forEach(function (el) { el.textContent = name; });
+      }
+      function renderTypeSign() {
+        if (!sigScript || !typeSign) return;
+        if (drawn) return; // drawn signature wins the line
+        sigScript.textContent = typeSign.value.trim();
+      }
+      function mirrorDrawnSignature() {
+        if (!sigScript || !pad) return;
+        sigScript.textContent = '';
+        var img = document.createElement('img');
+        img.alt = 'Your signature';
+        img.src = pad.toDataURL('image/png');
+        sigScript.appendChild(img);
+      }
+      function mark(signed) {
+        window.__agreementSeen = { name: currentParty(), signed: !!signed, date: dateLabel };
+      }
+      if (nameInput) nameInput.addEventListener('input', function () { renderParties(); mark(drawn || !!(typeSign && typeSign.value.trim())); });
+      if (typeSign) typeSign.addEventListener('input', function () { renderTypeSign(); mark(drawn || !!typeSign.value.trim()); });
+
+      // --- Signature pad (pointer events, DPR-aware) ---
+      if (pad && pad.getContext) {
+        var ctx = pad.getContext('2d');
+        var drawing = false;
+        var last = null;
+        function resizePad() {
+          var dpr = window.devicePixelRatio || 1;
+          var rect = pad.getBoundingClientRect();
+          var snapshot = pad.width ? pad.toDataURL() : null;
+          pad.width = Math.max(1, Math.round(rect.width * dpr));
+          pad.height = Math.max(1, Math.round(rect.height * dpr));
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.lineWidth = 2.1;
+          ctx.strokeStyle = '#1c2a4a';
+          if (snapshot) {
+            var img = new Image();
+            img.onload = function () { ctx.drawImage(img, 0, 0, rect.width, rect.height); };
+            img.src = snapshot;
+          }
+        }
+        function pos(e) {
+          var rect = pad.getBoundingClientRect();
+          var src = e.touches && e.touches[0] ? e.touches[0] : e;
+          return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+        }
+        function startDraw(e) {
+          e.preventDefault();
+          drawing = true;
+          last = pos(e);
+          if (pad.setPointerCapture && e.pointerId !== undefined) { try { pad.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ } }
+        }
+        function moveDraw(e) {
+          if (!drawing) return;
+          e.preventDefault();
+          var p = pos(e);
+          ctx.beginPath();
+          ctx.moveTo(last.x, last.y);
+          ctx.lineTo(p.x, p.y);
+          ctx.stroke();
+          last = p;
+          if (!drawn) {
+            drawn = true;
+            if (clearBtn) clearBtn.hidden = false;
+            if (signNote) signNote.textContent = 'Signed — locally, in this browser. It never leaves this page.';
+            mark(true);
+          }
+          mirrorDrawnSignature();
+        }
+        function endDraw() { drawing = false; last = null; }
+        pad.addEventListener('pointerdown', startDraw);
+        pad.addEventListener('pointermove', moveDraw);
+        pad.addEventListener('pointerup', endDraw);
+        pad.addEventListener('pointercancel', endDraw);
+        pad.addEventListener('pointerleave', endDraw);
+        if (clearBtn) clearBtn.addEventListener('click', function () {
+          var rect = pad.getBoundingClientRect();
+          ctx.clearRect(0, 0, rect.width, rect.height);
+          drawn = false;
+          clearBtn.hidden = true;
+          if (signNote) signNote.textContent = 'Your mark never leaves this page — it’s a preview, not a signature.';
+          if (sigScript) sigScript.textContent = '';
+          renderTypeSign();
+          mark(!!(typeSign && typeSign.value.trim()));
+        });
+        window.addEventListener('resize', resizePad);
+        resizePad();
+      }
+
+      // --- Copy these terms (plain text) ---
+      function termsText() {
+        var party = currentParty();
+        return [
+          'THE AGREEMENT — Travis Weber · Website Design',
+          'Between Travis Weber ("Designer") and ' + party + ' ("Client") · ' + dateLabel,
+          '',
+          '1. Fixed price, in writing. The quote you approve is the price. It never creeps. If the work changes, we re-scope in writing before any work happens.',
+          '2. Draft first, pay second. You see and approve the first full draft before paying anything.',
+          '3. Free revisions. I revise until the draft matches your brief. Included — never billed.',
+          '4. The walk-away. If the first draft misses your brief, you pass and you owe nothing.',
+          '5. You own it all. Code, copy, domain, photos and logins are yours. No hostage fees, no lock-in.',
+          '6. Dates in writing. Start week and draft date are set in writing at kickoff. If anything slips, you hear it from me first — never silence.',
+          '7. Out of scope, never sprung. Hosting, domains, paid licenses and anything outside the written quote are priced before they’re added.',
+          '',
+          'Either of us can walk away before the first draft — no invoice, no hard feelings.',
+          'The real paper matches this word for word. Signed only after you approve the written quote.'
+        ].join('\n');
+      }
+      if (copyBtn) copyBtn.addEventListener('click', function () {
+        var text = termsText();
+        function done() { if (status) status.textContent = 'Copied — it’s yours either way. Hiring me is optional.'; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () {
+            var ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+            ta.parentNode.removeChild(ta); done();
+          });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+          ta.parentNode.removeChild(ta); done();
+        }
+      });
+
+      // --- CTA: pre-fill the brief, flash it, scroll to it ---
+      if (cta) cta.addEventListener('click', function (e) {
+        e.preventDefault();
+        mark(drawn || !!(typeSign && typeSign.value.trim()));
+        var briefForm = document.getElementById('brief');
+        if (briefForm) {
+          var typed = nameInput ? nameInput.value.trim() : '';
+          var bField = briefForm.elements['business'];
+          if (bField && typed && !bField.value.trim()) bField.value = typed;
+          briefForm.classList.remove('brief-flash');
+          void briefForm.offsetWidth;
+          briefForm.classList.add('brief-flash');
+        }
+        var target = document.getElementById('contact');
+        if (target) target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      renderParties();
+    })();
+  </script>
+  <script>
+    (function () {
       var form = document.getElementById('brief');
       if (!form) return;
       var steps = Array.prototype.slice.call(form.querySelectorAll('.brief-step'));
@@ -769,6 +1008,7 @@
         }
         if (window.__estimateText) lines.push('Estimate picked: ' + window.__estimateText);
         if (window.__sprintWeek) lines.push('Preferred start: ' + window.__sprintWeek);
+        if (window.__agreementSeen) lines.push('Agreement preview: read' + (window.__agreementSeen.signed ? ' & signed' : '') + ' on ' + window.__agreementSeen.date);
         if (window.__siteAudit) lines.push('5-second test: ' + window.__siteAudit.score + '/100' +
           (window.__siteAudit.fails.length ? ' — flagged: ' + window.__siteAudit.fails.join('; ') : ' — clean pass'));
         lines.push('', 'Sent from the 60-second brief builder.');
@@ -1043,7 +1283,7 @@
           }, { threshold: 0, rootMargin: '-72px 0px 0px 0px' }).observe(hero);
         }
         // Hide the dock while the brief form or footer is visible — never cover the ask.
-        var hideTargets = [contact, footer].filter(Boolean);
+        var hideTargets = [contact, footer, document.getElementById('agreement')].filter(Boolean);
         var visState = new Map();
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) { visState.set(e.target, e.isIntersecting); });
