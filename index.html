@@ -155,6 +155,36 @@
       <p class="glowup-caption">Illustration — one fictional plumbing company, before and after a rebuild. The mess is typical; the fix is routine.</p>
     </section>
 
+    <section class="test-section" id="test" aria-labelledby="test-title">
+      <div class="test-head reveal">
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> The 5-second test — your homepage</p>
+        <h2 id="test-title">Paste your homepage.<br><em>Get the verdict.</em></h2>
+        <p class="test-sub">Copy the visible text from your current site — or from a draft — and paste it below. The analyzer scores clarity, contactability, and call-to-action, flags the usual leaks, and tells you what a stranger actually walks away with in five seconds. Nothing leaves this page.</p>
+      </div>
+      <div class="test-stage reveal">
+        <div class="test-input">
+          <label class="test-label" for="testPaste">Your homepage text</label>
+          <textarea class="test-paste" id="testPaste" rows="13" spellcheck="false" placeholder="Paste everything a visitor reads on your homepage — headline, services, the about blurb, all of it…" aria-describedby="testCount"></textarea>
+          <div class="test-input-row">
+            <button type="button" class="test-ghost-btn" id="testSample">Load a leaky sample</button>
+            <button type="button" class="test-ghost-btn" id="testClear">Clear</button>
+            <span class="test-count" id="testCount">0 words</span>
+          </div>
+          <p class="test-privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 12.2l1.8 1.8 3.4-3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Analyzed locally in your browser — nothing is sent, stored, or logged.</p>
+        </div>
+        <aside class="test-panel" aria-label="Your 5-second test results">
+          <span class="est-panel-kicker"><span class="est-panel-dot" aria-hidden="true"></span>Your 5-second score</span>
+          <div class="test-score"><span id="testScore">–</span><span class="test-score-of">/ 100<br>stranger score</span></div>
+          <div class="test-meter" aria-hidden="true"><div class="test-meter-fill" id="testFill"></div></div>
+          <h3 class="test-verdict" id="testVerdict">Waiting on your words</h3>
+          <p class="test-detail" id="testDetail" role="status" aria-live="polite">Paste your homepage copy — the score builds itself live. Findings and fixes included, in plain English.</p>
+          <ul class="test-findings" id="testFindings"></ul>
+          <a class="button button-dark test-cta" href="#contact" id="testCta">Fix what’s failing — start my brief <span aria-hidden="true">→</span></a>
+          <p class="test-note">Heuristic read on the text you paste — a fast gut check, not a formal audit. Want the real thing? That’s the brief.</p>
+        </aside>
+      </div>
+    </section>
+
     <section class="offer-section" id="services" aria-labelledby="offer-title">
       <p class="eyebrow reveal">What I build</p>
       <div class="offer-grid">
@@ -740,6 +770,8 @@
         }
         if (window.__estimateText) lines.push('Estimate picked: ' + window.__estimateText);
         if (window.__sprintWeek) lines.push('Preferred start: ' + window.__sprintWeek);
+        if (window.__siteAudit) lines.push('5-second test: ' + window.__siteAudit.score + '/100' +
+          (window.__siteAudit.fails.length ? ' — flagged: ' + window.__siteAudit.fails.join('; ') : ' — clean pass'));
         lines.push('', 'Sent from the 60-second brief builder.');
         return lines.join('\n');
       }
@@ -976,6 +1008,12 @@
       function businessName() { return nameInput ? nameInput.value.trim() : ''; }
 
       function message() {
+        var audit = window.__siteAudit;
+        if (audit) {
+          return audit.score >= 65
+            ? 'Your homepage scores ' + audit.score + '/100 — patch the flags and it pulls its weight.'
+            : 'Your homepage scores ' + audit.score + '/100 — “' + (audit.fails[0] || 'core gaps') + '” is costing you calls.';
+        }
         var check = leakState();
         var name = businessName();
         if (check && check.answered >= 6) {
@@ -1024,6 +1062,11 @@
       if (nameInput) nameInput.addEventListener('input', updateLine);
       var siteCheck = document.getElementById('site-check');
       if (siteCheck) siteCheck.addEventListener('click', function () { window.setTimeout(updateLine, 0); });
+      var testSection = document.getElementById('test');
+      if (testSection) {
+        testSection.addEventListener('click', function () { window.setTimeout(updateLine, 0); });
+        testSection.addEventListener('input', function () { window.setTimeout(updateLine, 0); });
+      }
 
       cta.addEventListener('click', function (e) {
         if (!contact) return;
@@ -1290,6 +1333,172 @@
         var target = document.getElementById('contact');
         if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      // The 5-second test — a fully client-side, honest heuristic read of the
+      // visitor's own homepage copy. Nothing leaves the page.
+      var paste = document.getElementById('testPaste');
+      if (!paste) return;
+      var countEl = document.getElementById('testCount');
+      var scoreEl = document.getElementById('testScore');
+      var fill = document.getElementById('testFill');
+      var verdict = document.getElementById('testVerdict');
+      var detail = document.getElementById('testDetail');
+      var findings = document.getElementById('testFindings');
+      var panel = paste.closest('.test-stage').querySelector('.test-panel');
+      var sampleBtn = document.getElementById('testSample');
+      var clearBtn = document.getElementById('testClear');
+      var cta = document.getElementById('testCta');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var SAMPLE = 'WELCOME TO OUR WEBSITE!!! We are proud to serve SEATTLE and surrounding areas since 1998!!! Premier, world-class plumbing solutions leveraging cutting-edge technology and a passionate commitment to excellence!!! We handle ALL your plumbing needs — drains, faucets, water heaters, repipes, you name it!!! Seniors discount!!! Check out our gallery and meet the family!!! Best viewed in Internet Explorer 6.0!!!';
+
+      var CTA_RE = /\b(call|book|quote|estimate|schedule|contact|free|order|buy|reserve|appointment|text|email|get started|reach out|sign up|request)\b/i;
+      var PHONE_RE = /(\+?1[-.\s]?)?(\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}/;
+      var PRICE_RE = /\$\s?\d/;
+      var AREA_RE = /\b(serving|service area|located|based in|near you|near me|surrounding|areas?)\b/i;
+      var BUZZWORDS = ['premier','world-class','world class','solutions','synergy','leverage','cutting-edge','state-of-the-art','best-in-class','second to none','unparalleled','innovative','revolutionary','seamless','holistic','passionate','commitment to excellence','satisfaction guaranteed','dedicated to delivering'];
+
+      function syllables(word) {
+        var w = word.toLowerCase().replace(/[^a-z]/g, '');
+        if (!w) return 0;
+        if (w.length <= 3) return 1;
+        var groups = w.replace(/(?:[^laeiouy]e|ed|[^laeiouy]es)$/, '').match(/[aeiouy]{1,2}/g);
+        return groups ? groups.length : 1;
+      }
+
+      function analyze(text) {
+        var words = text.trim().split(/\s+/).filter(Boolean);
+        var wc = words.length;
+        if (wc < 25) return null;
+        var lower = ' ' + text.toLowerCase() + ' ';
+        var sentences = text.split(/[.!?]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+        var sc = Math.max(sentences.length, 1);
+        var syl = 0;
+        words.forEach(function (w) { syl += syllables(w); });
+        var flesch = Math.round(206.835 - 1.015 * (wc / sc) - 84.6 * (syl / wc));
+
+        var phone = PHONE_RE.test(text);
+        var cta = CTA_RE.test(text);
+        var price = PRICE_RE.test(text);
+        var area = AREA_RE.test(text);
+
+        var buzz = 0;
+        BUZZWORDS.forEach(function (b) {
+          var idx = 0, n = 0;
+          while ((idx = lower.indexOf(b, idx)) !== -1) { n++; idx += b.length; }
+          buzz += n;
+        });
+
+        var exclam = (text.match(/!/g) || []).length;
+        var caps = words.filter(function (w) { return w.length >= 4 && /[A-Z]/.test(w) && w === w.toUpperCase(); }).length;
+
+        // Each penalty maps to a concrete, honest pass/fail check.
+        var checks = [
+          { ok: wc >= 60, pts: 10, label: 'Enough to judge', fail: 'Too thin — a stranger can’t tell what you do or who it’s for', tag: 'too thin' },
+          { ok: wc <= 600, pts: 8, label: 'Digestible length', fail: 'Wall of text — phone visitors bounce before the call-to-action', tag: 'wall of text' },
+          { ok: phone, pts: 16, label: 'Phone number on the page', fail: 'No phone number — a ready-to-buy visitor has no one-tap way to reach you', tag: 'no phone number' },
+          { ok: cta, pts: 16, label: 'A clear call-to-action', fail: 'No ask — nothing tells the visitor what to do next', tag: 'no call-to-action' },
+          { ok: price, pts: 6, label: 'A pricing signal', fail: 'No price anchor — visitors guess “probably expensive” and ghost', tag: 'no pricing signal' },
+          { ok: area, pts: 8, label: 'Service area is named', fail: 'No location — search and humans both skip a business that won’t say where it works', tag: 'no service area' },
+          { ok: flesch >= 45, pts: flesch >= 30 ? 8 : 14, label: 'Reads at a human grade level', fail: 'Reads like a contract — Flesch ' + flesch + ' (aim for 45+, the way a person talks)', tag: 'hard to read' },
+          { ok: buzz === 0, pts: Math.min(buzz * 4, 20), label: 'Zero buzzwords', fail: buzz + ' buzzword' + (buzz === 1 ? '' : 's') + ' (premier, world-class, solutions…) — words that say nothing and cost trust', tag: 'buzzword soup' },
+          { ok: exclam <= 2, pts: Math.min((exclam - 2) * 3, 12), label: 'Calm punctuation', fail: exclam + ' exclamation marks — shouting reads as desperate, not confident', tag: 'exclamation spam' },
+          { ok: caps <= 3, pts: Math.min((caps - 3) * 2, 10), label: 'Shouting minimal', fail: caps + ' ALL-CAPS words — emphasis by yelling; use layout, not volume', tag: 'ALL-CAPS shouting' }
+        ];
+
+        var score = 100;
+        var flagged = [];
+        checks.forEach(function (c) {
+          if (!c.ok) { score -= c.pts; flagged.push({ tag: c.tag, pts: c.pts }); }
+        });
+        // Worst leak first — the dock and brief lead with the most expensive gap.
+        flagged.sort(function (a, b) { return b.pts - a.pts; });
+        var fails = flagged.map(function (f) { return f.tag; });
+        score = Math.max(2, Math.min(98, Math.round(score)));
+        return { score: score, fails: fails, checks: checks, words: wc, flesch: flesch };
+      }
+
+      var TIERS = [
+        { min: 85, verdict: 'Strangers get it.', detail: 'Clear offer, visible contact, one obvious next step. What’s left is speed-to-quote and follow-up — not a rewrite.' },
+        { min: 65, verdict: 'Mostly clear — small leaks.', detail: 'A stranger understands most of it. Patch the flagged items and the page starts pulling its weight.' },
+        { min: 40, verdict: 'A stranger hesitates.', detail: 'Visitors can’t tell what you do, who it’s for, or what to do next — so they back out and call someone clearer. The fixes are specific; see the flags.' },
+        { min: 0,  verdict: 'A stranger bounces.', detail: 'The page fails the five-second test — no clear offer, no easy path to contact, writing that fights the reader. This is the exact leak a rebuild plugs.' }
+      ];
+
+      function renderEmpty() {
+        scoreEl.textContent = '–';
+        fill.style.width = '0%';
+        verdict.textContent = 'Waiting on your words';
+        detail.textContent = 'Paste your homepage copy — the score builds itself live. Findings and fixes included, in plain English.';
+        findings.innerHTML = '';
+        panel.classList.remove('is-failing');
+        window.__siteAudit = null;
+      }
+
+      function render(result) {
+        var tier = TIERS.filter(function (t) { return result.score >= t.min; })[0];
+        scoreEl.textContent = String(result.score);
+        fill.style.width = result.score + '%';
+        verdict.textContent = tier.verdict;
+        detail.textContent = tier.detail;
+        panel.classList.toggle('is-failing', result.score < 50);
+        findings.innerHTML = '';
+        // Fails first — the honest part — then the passes worth keeping.
+        var ordered = result.checks.slice().sort(function (a, b) { return (a.ok === b.ok) ? 0 : (a.ok ? 1 : -1); });
+        ordered.forEach(function (c) {
+          var li = document.createElement('li');
+          li.className = c.ok ? 'tf-pass' : 'tf-fail';
+          var mark = document.createElement('span');
+          mark.className = 'tf-mark';
+          mark.setAttribute('aria-hidden', 'true');
+          mark.textContent = c.ok ? '✓' : '✕';
+          var text = document.createElement('span');
+          text.textContent = c.ok ? c.label : c.fail;
+          li.appendChild(mark);
+          li.appendChild(text);
+          findings.appendChild(li);
+        });
+        window.__siteAudit = { score: result.score, fails: result.fails.slice() };
+      }
+
+      var timer = null;
+      function run() {
+        var text = paste.value;
+        var wc = text.trim() ? text.trim().split(/\s+/).filter(Boolean).length : 0;
+        countEl.textContent = wc + (wc === 1 ? ' word' : ' words');
+        var result = analyze(text);
+        if (!result) { renderEmpty(); return; }
+        render(result);
+      }
+      function debounced() {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(run, reduce ? 0 : 160);
+      }
+      paste.addEventListener('input', debounced);
+
+      sampleBtn.addEventListener('click', function () {
+        paste.value = SAMPLE;
+        run();
+        paste.focus();
+      });
+      clearBtn.addEventListener('click', function () {
+        paste.value = '';
+        run();
+        paste.focus();
+      });
+      cta.addEventListener('click', function () {
+        var brief = document.getElementById('brief');
+        if (brief) {
+          brief.classList.remove('brief-flash');
+          void brief.offsetWidth;
+          brief.classList.add('brief-flash');
+        }
+      });
+
+      run();
     })();
   </script>
 </body>
