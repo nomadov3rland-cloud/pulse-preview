@@ -469,6 +469,17 @@
     <a href="#main">Back to top ↑</a>
   </footer>
 
+  <div class="quote-dock" id="quoteDock" role="complementary" aria-label="Get a free quote in 60 seconds" aria-hidden="true">
+    <div class="quote-dock-inner">
+      <div class="quote-dock-copy">
+        <span class="quote-dock-kicker"><span class="quote-dock-dot" aria-hidden="true"></span>Free quote · 60 seconds</span>
+        <p class="quote-dock-line" id="quoteDockLine">A fixed price before any work — nothing is sent until you say so.</p>
+      </div>
+      <a class="button button-dark quote-dock-cta" id="quoteDockCta" href="#contact">Get my quote <span aria-hidden="true">→</span></a>
+      <button type="button" class="quote-dock-close" id="quoteDockClose" aria-label="Dismiss this bar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+
   <script>
     (function () {
       // Desktop shows the full nav (details always open); phone/tablet collapse it behind the hamburger.
@@ -765,6 +776,113 @@
       });
 
       render();
+    })();
+  </script>
+  <script>
+    (function () {
+      var dock = document.getElementById('quoteDock');
+      if (!dock) return;
+      var dismissed = false;
+      try { dismissed = window.sessionStorage.getItem('quoteDockDismissed') === '1'; } catch (e) { /* private mode */ }
+      if (dismissed) { dock.parentNode.removeChild(dock); return; }
+
+      var line = document.getElementById('quoteDockLine');
+      var cta = document.getElementById('quoteDockCta');
+      var closeBtn = document.getElementById('quoteDockClose');
+      var contact = document.getElementById('contact');
+      var footer = document.querySelector('.site-footer');
+      var hero = document.querySelector('.hero');
+      var briefForm = document.getElementById('brief');
+      var nameInput = document.getElementById('pvName');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var heroPassed = !hero; // no hero → treat as passed
+      var hideZone = false;   // contact form or footer on screen
+
+      function leakState() {
+        try { return typeof window.__leakCheck === 'function' ? window.__leakCheck() : null; }
+        catch (e) { return null; }
+      }
+      function businessName() { return nameInput ? nameInput.value.trim() : ''; }
+
+      function message() {
+        var check = leakState();
+        var name = businessName();
+        if (check && check.answered >= 6) {
+          if (check.leaks === 0) return (name || 'Your site') + ' — zero leaks. Let’s talk speed-to-quote and follow-up instead.';
+          return (name ? name + ': ' : 'Your site: ') + check.leaks + ' of 6 leaks found — each one is calls you never get.';
+        }
+        if (check && check.answered > 0) {
+          return 'Leak check: ' + check.leaks + (check.leaks === 1 ? ' leak' : ' leaks') + ' so far across ' + check.answered + ' of 6 — finish it for the full verdict.';
+        }
+        if (name) return name + ' — sketch the homepage above, then lock in a fixed quote.';
+        return 'A fixed price before any work — nothing sent until you say so.';
+      }
+      function updateLine() {
+        var m = message();
+        if (line.textContent !== m) line.textContent = m;
+      }
+      function sync() {
+        var show = heroPassed && !hideZone;
+        dock.classList.toggle('is-visible', show);
+        dock.setAttribute('aria-hidden', show ? 'false' : 'true');
+        updateLine();
+      }
+
+      if ('IntersectionObserver' in window) {
+        if (hero) {
+          new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { heroPassed = !e.isIntersecting; sync(); });
+          }, { threshold: 0, rootMargin: '-72px 0px 0px 0px' }).observe(hero);
+        }
+        // Hide the dock while the brief form or footer is visible — never cover the ask.
+        var hideTargets = [contact, footer].filter(Boolean);
+        var visState = new Map();
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { visState.set(e.target, e.isIntersecting); });
+          hideZone = false;
+          visState.forEach(function (v) { if (v) hideZone = true; });
+          sync();
+        }, { threshold: 0.02 });
+        hideTargets.forEach(function (t) { io.observe(t); });
+      } else {
+        heroPassed = true;
+        sync();
+      }
+
+      // Keep the line in sync with what the visitor does elsewhere on the page.
+      if (nameInput) nameInput.addEventListener('input', updateLine);
+      var siteCheck = document.getElementById('site-check');
+      if (siteCheck) siteCheck.addEventListener('click', function () { window.setTimeout(updateLine, 0); });
+
+      cta.addEventListener('click', function (e) {
+        if (!contact) return;
+        e.preventDefault();
+        // Pre-fill the brief with the visitor's business name if they typed one in the preview.
+        var name = businessName();
+        if (briefForm && name) {
+          var bField = briefForm.elements['business'];
+          if (bField && !bField.value.trim()) bField.value = name;
+          var sField = briefForm.elements['summary'];
+          var tagline = document.getElementById('pvTagline');
+          if (sField && tagline && !sField.value.trim() && tagline.value.trim()) sField.value = tagline.value.trim();
+        }
+        if (briefForm) {
+          briefForm.classList.remove('brief-flash');
+          void briefForm.offsetWidth;
+          briefForm.classList.add('brief-flash');
+        }
+        contact.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      closeBtn.addEventListener('click', function () {
+        try { window.sessionStorage.setItem('quoteDockDismissed', '1'); } catch (e) { /* ignore */ }
+        dock.classList.remove('is-visible');
+        dock.setAttribute('aria-hidden', 'true');
+        window.setTimeout(function () { if (dock.parentNode) dock.parentNode.removeChild(dock); }, 500);
+      });
+
+      updateLine();
     })();
   </script>
 </body>
