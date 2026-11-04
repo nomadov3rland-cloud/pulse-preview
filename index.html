@@ -19,6 +19,7 @@
         <a href="#work">Concepts</a>
         <a href="#preview">Preview</a>
         <a href="#site-check">Site check</a>
+        <a href="#estimate">Estimate</a>
         <a href="#approach">Approach</a>
         <a href="#about">About</a>
       </nav>
@@ -386,6 +387,54 @@
       </div>
     </section>
 
+    <section class="estimate-section" id="estimate" aria-labelledby="estimate-title">
+      <div class="estimate-head reveal">
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">✦</span> The 30-second estimate</p>
+        <h2 id="estimate-title">What would yours <em>actually cost?</em></h2>
+        <p class="estimate-sub">Pick what you need and watch the range build itself — add-ons included. An honest ballpark before we talk, not a price that shrinks after you say yes.</p>
+      </div>
+      <div class="estimate-stage reveal">
+        <div class="estimate-controls">
+          <fieldset class="est-group">
+            <legend class="est-legend">Project type</legend>
+            <div class="est-type-group" id="estTypeGroup" role="radiogroup" aria-label="Project type">
+              <button type="button" class="est-type is-active" role="radio" aria-checked="true" data-type="new"><strong>New website</strong><span>Design + build from scratch</span></button>
+              <button type="button" class="est-type" role="radio" aria-checked="false" data-type="redesign"><strong>Redesign</strong><span>Same business, a site that earns its keep</span></button>
+              <button type="button" class="est-type" role="radio" aria-checked="false" data-type="landing"><strong>Landing page</strong><span>One focused page that converts</span></button>
+              <button type="button" class="est-type" role="radio" aria-checked="false" data-type="stripe"><strong>Stripe / payments</strong><span>Checkout, payment links, invoices</span></button>
+              <button type="button" class="est-type" role="radio" aria-checked="false" data-type="automation"><strong>AI / automation</strong><span>Agents, workflows, tool integrations</span></button>
+            </div>
+          </fieldset>
+
+          <div class="est-pages" id="estPagesWrap">
+            <label class="est-pages-label" for="estPages">Number of pages <output class="est-pages-out" id="estPagesOut" for="estPages">5</output></label>
+            <input type="range" id="estPages" name="estPages" min="1" max="12" step="1" value="5" aria-describedby="estPagesHint">
+            <div class="est-pages-scale" id="estPagesHint" aria-hidden="true"><span>1 page</span><span>6</span><span>12+</span></div>
+          </div>
+
+          <fieldset class="est-group">
+            <legend class="est-legend">Add-ons <span class="est-legend-note">(optional, tap to toggle)</span></legend>
+            <div class="est-addons" id="estAddons">
+              <button type="button" class="est-addon" aria-pressed="false" data-label="Online booking / scheduling" data-low="300" data-high="500"><span class="est-addon-check" aria-hidden="true">✓</span>Online booking <em>+$300–500</em></button>
+              <button type="button" class="est-addon" aria-pressed="false" data-label="Stripe payment setup" data-low="400" data-high="700"><span class="est-addon-check" aria-hidden="true">✓</span>Stripe payments <em>+$400–700</em></button>
+              <button type="button" class="est-addon" aria-pressed="false" data-label="Copywriting (plain-language site copy)" data-low="350" data-high="650"><span class="est-addon-check" aria-hidden="true">✓</span>Copywriting <em>+$350–650</em></button>
+              <button type="button" class="est-addon" aria-pressed="false" data-label="Local SEO setup" data-low="250" data-high="450"><span class="est-addon-check" aria-hidden="true">✓</span>Local SEO setup <em>+$250–450</em></button>
+              <button type="button" class="est-addon" aria-pressed="false" data-label="Monthly care plan (updates, backups, fixes)" data-monthly="true" data-low="90" data-high="150"><span class="est-addon-check" aria-hidden="true">✓</span>Monthly care plan <em>+$90–150/mo</em></button>
+            </div>
+          </fieldset>
+        </div>
+
+        <aside class="estimate-panel" aria-label="Your estimate">
+          <span class="est-panel-kicker"><span class="est-panel-dot" aria-hidden="true"></span>Your ballpark</span>
+          <div class="est-total" aria-live="polite"><span id="estLow">$0</span><span class="est-dash" aria-hidden="true">–</span><span id="estHigh">$0</span></div>
+          <p class="est-total-note">one-time project range · USD</p>
+          <ul class="est-breakdown" id="estBreakdown"></ul>
+          <a class="button button-dark est-cta" href="#contact" id="estCta">Lock in this range — start my brief <span aria-hidden="true">→</span></a>
+          <p class="est-note">A ballpark, not a binding quote — your fixed price is set after a short call, and it never creeps mid-project.</p>
+        </aside>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" aria-labelledby="cta-title">
       <p class="eyebrow reveal"><span class="eyebrow-mark" aria-hidden="true">✦</span> Start a project</p>
       <h2 id="cta-title" class="reveal">Your project brief, <em>in 60 seconds.</em></h2>
@@ -570,6 +619,7 @@
           lines.push('Site check: ' + check.leaks + ' of 6 leaks' +
             (check.list.length ? ' — ' + check.list.join('; ') : ' — clean bill of health'));
         }
+        if (window.__estimateText) lines.push('Estimate picked: ' + window.__estimateText);
         lines.push('', 'Sent from the 60-second brief builder.');
         return lines.join('\n');
       }
@@ -883,6 +933,118 @@
       });
 
       updateLine();
+    })();
+  </script>
+  <script>
+    (function () {
+      var section = document.getElementById('estimate');
+      if (!section) return;
+      var typeButtons = Array.prototype.slice.call(section.querySelectorAll('.est-type'));
+      var addonButtons = Array.prototype.slice.call(section.querySelectorAll('.est-addon'));
+      var pagesWrap = document.getElementById('estPagesWrap');
+      var pagesInput = document.getElementById('estPages');
+      var pagesOut = document.getElementById('estPagesOut');
+      var lowEl = document.getElementById('estLow');
+      var highEl = document.getElementById('estHigh');
+      var breakdownEl = document.getElementById('estBreakdown');
+      var cta = document.getElementById('estCta');
+      var currentType = 'new';
+      // Honest ranges for a solo builder — low/high per project type, plus per-page cost.
+      var TYPES = {
+        new:        { label: 'New website',        low: 1400, high: 2400, perPageLow: 220, perPageHigh: 320, pages: true },
+        redesign:   { label: 'Website redesign',   low: 1100, high: 1900, perPageLow: 180, perPageHigh: 280, pages: true },
+        landing:    { label: 'Landing page',       low: 750,  high: 1300, perPageLow: 0,   perPageHigh: 0,   pages: false },
+        stripe:     { label: 'Stripe / payments',  low: 450,  high: 800,  perPageLow: 0,   perPageHigh: 0,   pages: false },
+        automation: { label: 'AI / automation',    low: 900,  high: 2200, perPageLow: 0,   perPageHigh: 0,   pages: false }
+      };
+      function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+      function activeAddons() {
+        return addonButtons.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; });
+      }
+      function compute() {
+        var t = TYPES[currentType];
+        var pages = t.pages ? Number(pagesInput.value) : 0;
+        var low = t.low, high = t.high;
+        var lines = [];
+        lines.push({ label: t.label + ' — base', low: t.low, high: t.high });
+        if (t.pages && pages > 1) {
+          var extra = pages - 1;
+          var pLow = extra * t.perPageLow, pHigh = extra * t.perPageHigh;
+          low += pLow; high += pHigh;
+          lines.push({ label: extra + ' extra page' + (extra > 1 ? 's' : '') + ' × ' + fmt(t.perPageLow) + '–' + fmt(t.perPageHigh), low: pLow, high: pHigh });
+        }
+        activeAddons().forEach(function (b) {
+          var aLow = Number(b.getAttribute('data-low')), aHigh = Number(b.getAttribute('data-high'));
+          var monthly = b.getAttribute('data-monthly') === 'true';
+          if (!monthly) { low += aLow; high += aHigh; }
+          lines.push({ label: b.getAttribute('data-label'), low: aLow, high: aHigh, monthly: monthly });
+        });
+        return { low: low, high: high, lines: lines, pages: pages };
+      }
+      function render() {
+        var t = TYPES[currentType];
+        pagesWrap.hidden = !t.pages;
+        pagesOut.textContent = pagesInput.value;
+        var r = compute();
+        lowEl.textContent = fmt(r.low);
+        highEl.textContent = fmt(r.high);
+        breakdownEl.innerHTML = '';
+        r.lines.forEach(function (l) {
+          var li = document.createElement('li');
+          var name = document.createElement('span');
+          name.textContent = l.label;
+          var val = document.createElement('span');
+          val.textContent = l.monthly ? fmt(l.low) + '–' + fmt(l.high) + '/mo' : fmt(l.low) + '–' + fmt(l.high);
+          li.appendChild(name); li.appendChild(val);
+          if (l.monthly) li.className = 'is-monthly';
+          breakdownEl.appendChild(li);
+        });
+      }
+      typeButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          currentType = btn.getAttribute('data-type');
+          typeButtons.forEach(function (b) {
+            var active = b === btn;
+            b.classList.toggle('is-active', active);
+            b.setAttribute('aria-checked', active ? 'true' : 'false');
+          });
+          render();
+        });
+      });
+      addonButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+          render();
+        });
+      });
+      pagesInput.addEventListener('input', render);
+
+      cta.addEventListener('click', function (e) {
+        e.preventDefault();
+        var r = compute();
+        var t = TYPES[currentType];
+        var parts = [t.label + (t.pages ? ', ' + r.pages + ' page' + (r.pages === 1 ? '' : 's') : '')];
+        activeAddons().forEach(function (b) { parts.push(b.getAttribute('data-label')); });
+        window.__estimateText = fmt(r.low) + '–' + fmt(r.high) + ' one-time — ' + parts.join('; ');
+        // Pre-select the closest budget chip in the brief so the numbers stay consistent.
+        var budgetValue = null;
+        if (r.high <= 1000) budgetValue = 'Under $1,000';
+        else if (r.high <= 2500) budgetValue = '$1,000–$2,500';
+        else if (r.high <= 5000) budgetValue = '$2,500–$5,000';
+        else budgetValue = 'Not sure yet';
+        var budgetInput = document.querySelector('#brief input[name="budget"][value="' + budgetValue + '"]');
+        if (budgetInput) budgetInput.checked = true;
+        var briefForm = document.getElementById('brief');
+        if (briefForm) {
+          briefForm.classList.remove('brief-flash');
+          void briefForm.offsetWidth;
+          briefForm.classList.add('brief-flash');
+        }
+        var target = document.getElementById('contact');
+        if (target) target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      render();
     })();
   </script>
 </body>
